@@ -1,0 +1,548 @@
+{
+    "zons":[
+{
+    "zon": "00",
+    "visitors":{
+        "min": 0.00,
+        "max": 0.15
+    },
+    "related":{
+        "min": 0.00,
+        "max": null
+    }
+},
+{
+    "zon": "01",
+    "visitors":{
+        "min": 0.15,
+        "max": null
+    },
+    "related":{
+        "min": 0.50,
+        "max": null
+    }
+},
+{
+    "zon": "02",
+    "visitors":{
+        "min": 0.35,
+        "max": null
+    },
+    "related":{
+        "min": 0.75,
+        "max": null
+    }
+},
+{
+    "zon": "03",
+    "visitors":{
+        "min": 0.75,
+        "max": null
+    },
+    "related":{
+        "min": 1.00,
+        "max": null
+    }
+}
+    ],
+    "mainTab":[
+    {
+        "id": "1",
+        "usage": [{
+            "name": "bydlení",
+            "values_1": {
+                "hpp": 120,
+                "bounded": 90,
+                "visitors": 10
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 90,
+                "visitors": 10
+            }
+        },{
+            "name": "po přepočtu na max. 2 stání na byt",
+            "values_1": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            },
+            "values_2": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            }
+        }]
+    },
+    {
+        "id": "2a",
+        "usage": [{
+            "name": "obchody jednotlivé v parteru",
+            "values_1": {
+                "hpp": 70,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 150,
+                "bounded": 40,
+                "visitors": 60
+            }
+        }]
+    },
+    {
+        "id": "2b",
+        "usage": [{
+            "name": "služby a drobné provozovny (stravování, restaurace, hospody, řemeslné dílny, opravny, showroomy, výdejny e-shopů apod.)",
+            "values_1": {
+                "hpp": 40,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 150,
+                "bounded": 30,
+                "visitors": 70
+            }
+        },
+        {
+            "name": "autoservis ",
+            "values_1": {
+                "hpp": 20,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 150,
+                "bounded": 30,
+                "visitors": 70
+            }
+        }
+    ]
+    },
+    {
+        "id": "2c",
+        "usage": [{
+            "name": "Obchod a služby velkoplošné (supermarkety, obchodní domy, obchodní centra, hypermarkety apod.)",
+            "values_1": {
+                "hpp": 40,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 250,
+                "bounded": 30,
+                "visitors": 70
+            }
+        }]
+    },
+    {
+        "id": "3a",
+        "usage": [{
+            "name": "administrativa s malou návštěvností (běžné administrativní provozy, sídla firem, projekční ateliéry apod.)",
+            "values_1": {
+                "hpp": 50,
+                "bounded": 90,
+                "visitors": 10
+            },
+            "values_2": {
+                "hpp": 200,
+                "bounded": 90,
+                "visitors": 10
+            }
+        }]
+    },
+    {
+        "id": "3b",
+        "usage": [{
+            "name": "administrativa s velkou návštěvností (veřejné a další instituce, úřady, banky, pojišťovny, pošty apod., zejména vybavenost s přepážkovým provozem)",
+            "values_1": {
+                "hpp": 45,
+                "bounded": 60,
+                "visitors": 40
+            },
+            "values_2": {
+                "hpp": 150,
+                "bounded": 60,
+                "visitors": 40
+            }
+        }]
+    },
+    {
+        "id": "4a",
+        "usage": [{
+            "name": "ubytování dlouhodobé (ubytovna pro zaměstnance apod.)",
+            "values_1": {
+                "hpp": 120,
+                "bounded": 80,
+                "visitors": 20
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 90,
+                "visitors": 10
+            }
+        }]
+    },
+    {
+        "id": "4b",
+        "usage": [{
+            "name": "ubytování pro studenty (vysokoškolské koleje apod.)",
+            "values_1": {
+                "hpp": 250,
+                "bounded": 90,
+                "visitors": 10
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 90,
+                "visitors": 10
+            }
+        }]
+    },
+    {
+        "id": "4c",
+        "usage": [{
+            "name": "ubytování krátkodobé (hotely, penziony apod.)",
+            "values_1": {
+                "hpp": 100,
+                "bounded": 90,
+                "visitors": 10
+            },
+            "values_2": {
+                "hpp": 1000,
+                "bounded": 90,
+                "visitors": 10
+            }
+        },{
+            "name": "motel",
+            "values_1": {
+                "hpp": 25,
+                "bounded": 90,
+                "visitors": 10
+            },
+            "values_2": {
+                "hpp": 1000,
+                "bounded": 90,
+                "visitors": 10
+            }
+        },{
+            "name": "hostel",
+            "values_1": {
+                "hpp": 18,
+                "bounded": 90,
+                "visitors": 10
+            },
+            "values_2": {
+                "hpp": 1000,
+                "bounded": 90,
+                "visitors": 10
+            }
+        }]
+    },
+    {
+        "id": "4d",
+        "usage": [{
+            "name": "institucionální a sociální péče (domovy pro seniory, domy s pečovatelskou službou apod.)",
+            "values_1": {
+                "hpp": 350,
+                "bounded": 35,
+                "visitors": 65
+            },
+            "values_2": {
+                "hpp": 500,
+                "bounded": 30,
+                "visitors": 70
+            }
+        },{
+            "name": "domovy mládeže, azylové domy apod.",
+            "values_1": {
+                "hpp": 350,
+                "bounded": 35,
+                "visitors": 65
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 30,
+                "visitors": 70
+            }
+        }]
+    },
+    {
+        "id": "5a",
+        "usage":[{
+            "name": "školství (základní škola, střední škola, učiliště apod.)",
+            "values_1": {
+                "hpp": 250,
+                "bounded": 30,
+                "visitors": 70
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 90,
+                "visitors": 10
+            }
+        },{
+            "name": "kostel, modlitebna",
+            "values_1": {
+                "hpp": 200,
+                "bounded": 5,
+                "visitors": 95
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 30,
+                "visitors": 70
+            }
+        },{
+            "name": "obřadní síň, krematorium",
+            "values_1": {
+                "hpp": 120,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 30,
+                "visitors": 70
+            }
+        }]
+    },
+    {
+        "id": "5b",
+        "usage": [{
+            "name": "vzdělávání / kongres (školicí zařízení, přednáškové centrum, kongresové centrum apod.)",
+            "values_1": {
+                "hpp": 60,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 300,
+                "bounded": 80,
+                "visitors": 20
+            }
+        }]
+    },
+    {
+        "id": "6",
+        "usage": [{
+            "name": "provozy se shromažďovacími prostory (kino, divadla, koncertní, společenské a taneční sály apod.) ",
+            "values_1": {
+                "hpp": 60,
+                "bounded": 20,
+                "visitors": 80
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 30,
+                "visitors": 70
+            }
+        },{
+            "name": "kostel, modlitebna",
+            "values_1": {
+                "hpp": 200,
+                "bounded": 5,
+                "visitors": 95
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 30,
+                "visitors": 70
+            }
+        },{
+            "name": "obřadní síň, krematorium ",
+            "values_1": {
+                "hpp": 120,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 60,
+                "bounded": 30,
+                "visitors": 70
+            }
+        }]
+    },
+    {
+        "id": "7",
+        "usage": [{
+            "name": "kulturní instituce (galerie, muzea, knihovny apod.) ",
+            "values_1": {
+                "hpp": 120,
+                "bounded": 20,
+                "visitors": 80
+            },
+            "values_2": {
+                "hpp": 250,
+                "bounded": 30,
+                "visitors": 70
+            }
+        }]
+    },
+    {
+        "id": "8a",
+        "usage": [{
+            "name": "zdravotnická zařízení ambulantní (poliklinika, zdravotní ordinace apod.)",
+            "values_1": {
+                "hpp": 50,
+                "bounded": 30,
+                "visitors": 70
+            },
+            "values_2": {
+                "hpp": 250,
+                "bounded": 70,
+                "visitors": 30
+            }
+        }]
+    },
+    {
+        "id": "8b",
+        "usage": [{
+            "name": "zdravotnická zařízení lůžková (nemocnice, klinika apod.)",
+            "values_1": {
+                "hpp": 300,
+                "bounded": 50,
+                "visitors": 50
+            },
+            "values_2": {
+                "hpp": 500,
+                "bounded": 70,
+                "visitors": 30
+            }
+        }]
+    },
+    {
+        "id": "9a",
+        "usage": [{
+            "name": "Sportovní centra / bez diváků — provozy s vnitřní hrací plochou (sportovní hala, tělocvična, squash apod.)",
+            "values_1": {
+                "hpp": 100,
+                "bounded": 20,
+                "visitors": 80
+            },
+            "values_2": {
+                "hpp": 100,
+                "bounded": 40,
+                "visitors": 60
+            }
+        }]
+    },
+    {
+        "id": "9b",
+        "usage": [{
+            "name": "sportovní centra / bez diváků — provozy bez hrací plochy a bazény (wellness, fitness, bowling, plavecký bazén, aquapark apod.)",
+            "values_1": {
+                "hpp": 40,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 40,
+                "bounded": 40,
+                "visitors": 60
+            }
+        }]
+    },
+    {
+        "id": "9c",
+        "usage": [{
+            "name": "sportovní centra / bez diváků — provozy bez hrací plochy a bazény (wellness, fitness, bowling, plavecký bazén, aquapark apod.)",
+            "values_1": {
+                "hpp": 120,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 120,
+                "bounded": 10,
+                "visitors": 90
+            }
+        },{
+            "name": "fotbalové hřiště",
+            "values_1": {
+                "hpp": 400,
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 400,
+                "bounded": 10,
+                "visitors": 90
+            }
+        }]
+    },
+    {
+        "id": "10",
+        "usage": [{
+            "name": "výroba",
+            "values_1": {
+                "hpp": [800,600,400,200],
+                "bounded": 10,
+                "visitors": 90
+            },
+            "values_2": {
+                "hpp": 500,
+                "bounded": 90,
+                "visitors": 10
+            }
+        }]
+    },
+    {
+        "id": "11",
+        "usage": [{
+            "name": "skladování",
+            "values_1": {
+                "hpp": 200,
+                "bounded": 30,
+                "visitors": 70
+            },
+            "values_2": {
+                "hpp": 500,
+                "bounded": 90,
+                "visitors": 10
+            }
+        }]
+    },
+    {
+        "id": "12",
+        "usage": [{
+            "name": "stadion, sportovní a multifunkční hala, koncertní hala apod",
+            "values_1": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            },
+            "values_2": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            }
+        },{
+            "name": "zoologická zahrada, botanická zahrada",
+            "values_1": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            },
+            "values_2": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            }
+        },{
+            "name": "výstaviště, zábavní park, volnočasový areál apod.",
+            "values_1": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            },
+            "values_2": {
+                "hpp": null,
+                "bounded": null,
+                "visitors": null
+            }
+        }]
+    }
+]
+}

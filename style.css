@@ -1,0 +1,152 @@
+#mainApp{
+    width: 560px;
+}
+p{
+   margin: 0;
+   padding: 0;
+}
+
+.input_others,
+.inputs_production{
+   display: none;
+}
+/* SELECT Option bacground color*/
+.opptionColor_grey{
+    background-color:  rgb(235 235 235);
+ }
+.variants_buttons{
+   display: flex;
+       width: 560px;
+       justify-content: space-around;
+}
+.variants_buttons >div{
+   font-size: 25px;
+   cursor: pointer;
+
+   padding: 5px;
+   text-align: center;
+   margin: 2px;
+   background-color: rgb(235 235 235);
+   
+}
+
+.variants_slider__previous,
+.variants_slider__next{
+   opacity: 0;
+}
+.variants_button__add{
+
+   width: 100%;
+}
+.variants_button__remove{
+ 
+   display: none;
+}
+.variants_buttons >div:hover{
+   opacity: 0.8;
+}
+
+ .wrapper{
+    position: relative;
+
+
+ }
+ .carousel{
+
+    display: flex;
+        top: 0;
+        left: 0;
+        width: 560px;
+        overflow: hidden;
+        position: absolute;
+    
+
+  
+ }
+ .variants{
+    margin: 10px;
+    width: 560px;
+    object-fit: cover;
+
+ }
+ select{
+    width: 100%;
+ } 
+ .variants_slider{
+   display: flex;
+   width: 560px;
+   justify-content: space-between;
+ }
+ .variants_slider >div{
+    font-size: 25px;
+    cursor: pointer;
+
+
+ }
+ .variants_slider >h2{
+  margin: 0;
+   
+    }
+   
+
+ .variants_number{
+/*     text-align: center;
+    width: 200px; */
+ }
+
+ .input_others > div{
+   display: flex;
+ }
+ .input_others > div > input{
+   width: 100%;
+ }
+ .input_others > div > p{
+   margin: 0;
+   padding-right: 5px;
+ }
+.subResoults{
+   display: flex;
+    flex-direction: column;
+}
+ .subresults_title {
+   background-color: rgb(201, 201, 201);
+   padding: 10px;
+   border: solid 1px;
+   margin: 2px;
+   display: flex;
+   width: 90%;
+}
+.subresults_title > p{
+   width: 100%;
+   margin: 0;
+   padding-left: 10px;
+
+}
+.subresources_body{
+   padding: 10px;
+}
+.pointer{
+   cursor: pointer;
+}
+.esri-icon-trash{
+   padding-right: 8px;
+}
+
+.descriptionText{
+   display: flex;
+}
+.descriptionText> p:first-child{
+   margin-right: 10px;
+   font-weight: bold ;
+}
+
+.togle_title{
+   display: flex
+;
+padding: 5px;
+    justify-content: space-between;
+    background-color: #d6d6d6;
+}
+.togle_body{
+   padding: 10px;
+}
