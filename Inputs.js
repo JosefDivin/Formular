@@ -3,12 +3,20 @@ export default class Inputs {
     this.json = data;
 
     this.mainTab = data.mainTab;
-  
+    this.objectArray;
+
+  }
+
+  addAllInputs(){
     this.inputsHTML = document.createElement("div");
     this.inputsHTML.classList.add("inputs")
     this.input = this.inputs();
 
     this.inputsHTML.appendChild(this.input.inputsDIV);
+    return {
+      inputsHTML: this.inputsHTML,
+      input: this.input
+    }
   }
 
   inputs() {
@@ -34,7 +42,8 @@ export default class Inputs {
       inputs_apartments: inputs_apartments,
       inputs_hpp: inputs_hpp,
       inputs_production: inputs_production,
-      input_others: input_others
+      input_others: input_others,
+      objectArray: this.objectArray
     };
   }
 

@@ -22,9 +22,11 @@ export default class MainApp {
     });
     this.carousel = new Carousel();
      this.data = data
+
+     this.inputs =new Inputs(this.json);
   }
   addData() {
-    let inputs = new Inputs(this.json);
+    let inputs = this.inputs.addAllInputs();
     
     const carousel = document.querySelector(".carousel");
     const variants = document.createElement("div");

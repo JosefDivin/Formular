@@ -1,10 +1,10 @@
+import Subresource from "./Subresource";
 export default class Count {
   constructor(data, inputs, variantsHTMLElement) {
     console.log(inputs);
     this.inputs = inputs;
     this.data = data;
     
-  
     if (inputs) {
       this.variantsHTMLElement = variantsHTMLElement;
       this.containers = this.crateContainers();
@@ -12,10 +12,8 @@ export default class Count {
       this.addButton();
     }
     this.type = "housing";
+    
   }
-
-
-
 
   crateContainers() {
     let butonContainer = document.createElement("div");
@@ -92,8 +90,8 @@ export default class Count {
 
       mainLement.appendChild(title.titleElement);
       this.containers.subResoults.appendChild(mainLement);
-
-      let bodyContainer = this.subrsourceBody();
+      this.subresource = new Subresource(this.data,this.type, this.inputs)
+      let bodyContainer = this.subresource.subresourceBody();
 
       title.arrow.addEventListener("click", () => {
         if (title.arrow.classList.contains("esri-icon-up-arrow")) {
@@ -118,19 +116,7 @@ export default class Count {
     });
   }
 
-  createDescriptionText(title, text) {
-    const div = document.createElement("div");
-    const titleEl = document.createElement("p");
-    const textEl = document.createElement("p");
-    div.classList.add("descriptionText");
 
-    titleEl.innerHTML = title;
-    textEl.innerHTML = text;
-    div.appendChild(titleEl);
-    div.appendChild(textEl);
-
-    return div;
-  }
   removeElement(trashButton, mainLement, selectedIndex) {
     trashButton.addEventListener("click", () => {
       const options = this.inputs.input.inputs_usage.childNodes;
@@ -150,173 +136,6 @@ export default class Count {
         break;
       }
     }
-  }
-
-  subrsourceBody() {
-    const bodyContainer = document.createElement("div");
-    bodyContainer.classList.add("subresources_body");
-    const usegeType = this.inputs.input.inputs_usage.value;
-    const cislo = usegeType.slice(0, usegeType.indexOf(" "));
-    const type = usegeType.slice(usegeType.indexOf("-") + 2);
-    const number = this.createDescriptionText("Číslo:", cislo);
-    const name = this.createDescriptionText("Účel užívání:", type);
-
-    const subresourcInput = this.subresourceInput();
-
-    const subresourcResource=this.subresourceResource(subresourcInput)
-    bodyContainer.appendChild(number);
-    bodyContainer.appendChild(name);
-    bodyContainer.appendChild(subresourcInput.mainElement);
-    bodyContainer.appendChild(subresourcResource.mainElement);
-
-    return bodyContainer;
-  }
-  subresourceTogleElement(title) {
-    const titleEl = document.createElement("div");
-
-    const bodyEl = document.createElement("div");
-    const p = document.createElement("p");
-    const arrow = document.createElement("div");
-    titleEl.classList.add("togle_title");
-    bodyEl.classList.add("togle_body");
-    arrow.classList.add("esri-icon-down-arrow");
-    arrow.classList.add("pointer");
-    p.innerHTML = title;
-    titleEl.appendChild(p);
-    titleEl.appendChild(arrow);
-
-    arrow.addEventListener("click", () => {
-      if (arrow.classList.contains("esri-icon-up-arrow")) {
-        arrow.classList.add("esri-icon-down-arrow");
-        arrow.classList.remove("esri-icon-up-arrow");
-        arrow.title = "Otevři podrobný popis";
-        bodyEl.style.display = "none";
-      } else {
-        arrow.classList.add("esri-icon-up-arrow");
-        arrow.classList.remove("esri-icon-down-arrow");
-        arrow.title = "Zavři podrobný popis";
-        bodyEl.style.display = "block";
-      }
-    });
-
-    return {
-      title: titleEl,
-      body: bodyEl,
-    };
-  }
-
-  subresourceInput() {
-    let subresource_input = document.createElement("div");
-    subresource_input.classList.add("subresource_input");
-    console.log(this.type);
-
-    const inputElements = this.subresourceTogleElement("Vstupní parametry");
-    subresource_input.appendChild(inputElements.title);
-    subresource_input.appendChild(inputElements.body);
-    let input_others_div;
-    let inputs_appartments_div;
-    let hppInptu; 
-     let inputs_production_div; 
-    if (this.type === "others") {
-      input_others_div = this.sublayersInptuCopy(
-        this.inputs.input.input_others.input_others_div
-      );
-      inputElements.body.appendChild(input_others_div);
-    } else {
-      if (this.type === "housing") {
-        inputs_appartments_div = this.sublayersInptuCopy(
-          this.inputs.input.inputs_apartments.inputs_appartments_div
-        );
-        inputElements.body.appendChild(inputs_appartments_div);
-      }
-      hppInptu = this.sublayersInptuCopy(
-        this.inputs.input.inputs_hpp.inputs_hpp_div
-      );
-      inputElements.body.appendChild(hppInptu);
-
-      if (this.type === "production") {
-        inputs_production_div = this.sublayersInptuCopy(
-          this.inputs.input.inputs_production.inputs_production_div
-        );
-
-        inputs_production_div.childNodes[1].value =
-          this.inputs.input.inputs_production.select.value;
-        inputElements.body.appendChild(inputs_production_div);
-      }
-    }
-
-    return {
-      mainElement: subresource_input,
-      others: input_others_div,
-      housingApparments: inputs_appartments_div,
-      housingHpp: hppInptu,
-      production: inputs_production_div
-
-    };
-  }
-
-  subresourceResource(subresourcInput){
-    let subresource_resource = document.createElement("div");
-    subresource_resource.classList.add("subresource_resource");
-    const inputElements = this.subresourceTogleElement("Mezi výpočet");
-    subresource_resource.appendChild(inputElements.title);
-    subresource_resource.appendChild(inputElements.body);
-
-const selectedIndex = this.inputs.input.inputs_usage.selectedIndex
-
-
-let car = this.subresourcesElements("Osobní automobil", selectedIndex, subresourcInput)
-let bike = this.subresourcesElements("Jízdní kola", selectedIndex, subresourcInput)
-
-inputElements.body.appendChild(car)
-inputElements.body.appendChild(bike)
-    return {
-      mainElement: subresource_resource,
-    };
-  }
-
-  subresourcesElements(type, selectedIndex,subresourcInput){
-    console.log(type)
-console.log(selectedIndex)
-console.log(subresourcInput.mainElement.children[1].children[1].childNodes[1].value)
-console.log(this.inputs.objectArray[selectedIndex])
-let div = document.createElement("div");
-let h3 = document.createElement("h2");
-
-
-
-const usage = this.inputs.objectArray[selectedIndex]
-
-let countBound;
-let countVisitors;
-
-
-if(type === "Osobní automobil"){
-  
-}else{
-
-}
-
-const bound = this.createDescriptionText("Vázana:", 1.00) 
-const visitors = this.createDescriptionText("Navštěvnická:", 1.00) 
-const sum = this.createDescriptionText("Celkem:", 1.00) 
-
-h3.innerHTML = type;
-
-div.appendChild(h3)
-div.appendChild(bound)
-div.appendChild(visitors)
-div.appendChild(sum)
-return div
-
-
-
-  }
-
-  sublayersInptuCopy(inputElement) {
-    let elementCopy = inputElement.cloneNode(true);
-
-    return elementCopy;
   }
 
   changeUseType() {
@@ -358,8 +177,6 @@ return div
         input_others.style.display = "none";
         inputs_hpp.style.display = "block";
       }
-
-      console.log(this.type);
     });
   }
 }
