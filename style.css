@@ -1,10 +1,11 @@
 #mainApp{
     width: 560px;
 }
-p{
+p,h3{
    margin: 0;
    padding: 0;
 }
+
 
 .input_others,
 .inputs_production{
@@ -149,4 +150,12 @@ padding: 5px;
 }
 .togle_body{
    padding: 10px;
+}
+
+.togle_body > div{
+   padding: 10px;
+}
+
+.subresource_resource > .togle_body > div:nth-child(2){
+   background-color: rgb(235 235 235);
 }

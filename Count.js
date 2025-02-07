@@ -1,7 +1,10 @@
 export default class Count {
-  constructor(inputs, variantsHTMLElement) {
+  constructor(data, inputs, variantsHTMLElement) {
     console.log(inputs);
     this.inputs = inputs;
+    this.data = data;
+    
+  
     if (inputs) {
       this.variantsHTMLElement = variantsHTMLElement;
       this.containers = this.crateContainers();
@@ -10,6 +13,9 @@ export default class Count {
     }
     this.type = "housing";
   }
+
+
+
 
   crateContainers() {
     let butonContainer = document.createElement("div");
@@ -157,7 +163,7 @@ export default class Count {
 
     const subresourcInput = this.subresourceInput();
 
-    const subresourcResource=this.subresourceResource()
+    const subresourcResource=this.subresourceResource(subresourcInput)
     bodyContainer.appendChild(number);
     bodyContainer.appendChild(name);
     bodyContainer.appendChild(subresourcInput.mainElement);
@@ -207,26 +213,29 @@ export default class Count {
     const inputElements = this.subresourceTogleElement("Vstupní parametry");
     subresource_input.appendChild(inputElements.title);
     subresource_input.appendChild(inputElements.body);
-
+    let input_others_div;
+    let inputs_appartments_div;
+    let hppInptu; 
+     let inputs_production_div; 
     if (this.type === "others") {
-      let input_others_div = this.sublayersInptuCopy(
+      input_others_div = this.sublayersInptuCopy(
         this.inputs.input.input_others.input_others_div
       );
       inputElements.body.appendChild(input_others_div);
     } else {
       if (this.type === "housing") {
-        let inputs_appartments_div = this.sublayersInptuCopy(
+        inputs_appartments_div = this.sublayersInptuCopy(
           this.inputs.input.inputs_apartments.inputs_appartments_div
         );
         inputElements.body.appendChild(inputs_appartments_div);
       }
-      let hppInptu = this.sublayersInptuCopy(
+      hppInptu = this.sublayersInptuCopy(
         this.inputs.input.inputs_hpp.inputs_hpp_div
       );
       inputElements.body.appendChild(hppInptu);
 
       if (this.type === "production") {
-        let inputs_production_div = this.sublayersInptuCopy(
+        inputs_production_div = this.sublayersInptuCopy(
           this.inputs.input.inputs_production.inputs_production_div
         );
 
@@ -238,18 +247,70 @@ export default class Count {
 
     return {
       mainElement: subresource_input,
+      others: input_others_div,
+      housingApparments: inputs_appartments_div,
+      housingHpp: hppInptu,
+      production: inputs_production_div
+
     };
   }
 
-  subresourceResource(){
+  subresourceResource(subresourcInput){
     let subresource_resource = document.createElement("div");
     subresource_resource.classList.add("subresource_resource");
     const inputElements = this.subresourceTogleElement("Mezi výpočet");
     subresource_resource.appendChild(inputElements.title);
     subresource_resource.appendChild(inputElements.body);
+
+const selectedIndex = this.inputs.input.inputs_usage.selectedIndex
+
+
+let car = this.subresourcesElements("Osobní automobil", selectedIndex, subresourcInput)
+let bike = this.subresourcesElements("Jízdní kola", selectedIndex, subresourcInput)
+
+inputElements.body.appendChild(car)
+inputElements.body.appendChild(bike)
     return {
       mainElement: subresource_resource,
     };
+  }
+
+  subresourcesElements(type, selectedIndex,subresourcInput){
+    console.log(type)
+console.log(selectedIndex)
+console.log(subresourcInput.mainElement.children[1].children[1].childNodes[1].value)
+console.log(this.inputs.objectArray[selectedIndex])
+let div = document.createElement("div");
+let h3 = document.createElement("h2");
+
+
+
+const usage = this.inputs.objectArray[selectedIndex]
+
+let countBound;
+let countVisitors;
+
+
+if(type === "Osobní automobil"){
+  
+}else{
+
+}
+
+const bound = this.createDescriptionText("Vázana:", 1.00) 
+const visitors = this.createDescriptionText("Navštěvnická:", 1.00) 
+const sum = this.createDescriptionText("Celkem:", 1.00) 
+
+h3.innerHTML = type;
+
+div.appendChild(h3)
+div.appendChild(bound)
+div.appendChild(visitors)
+div.appendChild(sum)
+return div
+
+
+
   }
 
   sublayersInptuCopy(inputElement) {
