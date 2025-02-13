@@ -159,3 +159,64 @@ padding: 5px;
 .subresource_resource > .togle_body > div:nth-child(2){
    background-color: rgb(235 235 235);
 }
+
+.appartments_title{
+   font-weight: bold;
+   font-style: italic;
+}
+
+/** RESOURCE TABLE **/
+
+.resource_table__title{
+   display: flex
+   ;
+       justify-content: space-around;
+       padding: 10px;
+       background-color: #c9c9c9;
+       margin-bottom: 2px;
+       font-weight: bold;
+   
+}
+.resource_table__colomnTitle{
+   display: flex
+}
+.resource_table__colomnTitle>p{
+   margin: 2px 2px 0px 2px;
+
+   width: 100%;
+   height: 100%;
+   padding: 10px;
+   background-color: #f3f3f3;
+   text-align: center;
+   font-weight: bold;
+}
+.resource_table__colomnTitle>p:first-child{
+   margin-left: 0;
+}
+
+.resource_table__colomnTitle>p:last-child{
+   margin-right: 0;
+}
+
+.resource_table__colomnValue{
+   display: flex;
+   background-color: #f3f3f3;
+}
+.resource_table__colomnValue>p{
+ 
+   width: 100%;
+   height: 100%;
+   padding: 10px;
+   
+   text-align: center;
+
+   margin: 2px 0px 2px 2px;
+   background-color: #ffffff;
+}
+.resource_table__colomnValue>p:last-child{
+   margin-right: 2px;
+}
+
+.boltText{
+   font-weight: bold;
+}

@@ -1,9 +1,13 @@
 import Subresource from "./Subresource";
+import Resource from "./Resource";
 export default class Count {
   constructor(data, inputs, variantsHTMLElement) {
     console.log(inputs);
     this.inputs = inputs;
     this.data = data;
+    
+        this.resource = new Resource();
+        
     
     if (inputs) {
       this.variantsHTMLElement = variantsHTMLElement;
@@ -24,12 +28,16 @@ export default class Count {
 
     butonContainer.classList.add("addButton");
     subResoults.classList.add("subResoults");
-    subResoults.classList.add("resoults");
+    resoults.classList.add("resoults");
     butonContainer.appendChild(button);
 
     this.variantsHTMLElement.appendChild(butonContainer);
     this.variantsHTMLElement.appendChild(subResoults);
     this.variantsHTMLElement.appendChild(resoults);
+  
+    setTimeout(() => {
+      this.resource.crateElements()
+    }, 50);
     return {
       addButton: button,
       subResoults: subResoults,
@@ -91,6 +99,8 @@ export default class Count {
       mainLement.appendChild(title.titleElement);
       this.containers.subResoults.appendChild(mainLement);
       this.subresource = new Subresource(this.data,this.type, this.inputs)
+
+      
       let bodyContainer = this.subresource.subresourceBody();
 
       title.arrow.addEventListener("click", () => {
@@ -123,6 +133,7 @@ export default class Count {
       mainLement.remove();
       options[selectedIndex].hidden = false;
       this.selectFirstUnhideLine();
+      this.resource.mainCount()
     });
   }
 
