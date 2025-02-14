@@ -36,12 +36,16 @@ export default class Subresource {
     const type = usegeType.slice(usegeType.indexOf("-") + 2);
     const number = this.createDescriptionText("Číslo:", cislo);
     const name = this.createDescriptionText("Účel užívání:", type);
+    const descriptionContainer = document.createElement("div");
+    descriptionContainer.classList.add("subersources__description")
+    descriptionContainer.appendChild(number.mainElement);
+    descriptionContainer.appendChild(name.mainElement);
 
     const subresourcInput = this.subresourceInput();
 
     const subresourcResource = this.subresourceResource(subresourcInput);
-    bodyContainer.appendChild(number.mainElement);
-    bodyContainer.appendChild(name.mainElement);
+    bodyContainer.appendChild(descriptionContainer);
+  
     bodyContainer.appendChild(subresourcInput.mainElement);
     bodyContainer.appendChild(subresourcResource.mainElement);
     setTimeout(() => {
@@ -88,9 +92,15 @@ export default class Subresource {
   subresourceInput() {
     let subresource_input = document.createElement("div");
     subresource_input.classList.add("subresource_input");
+
+    let subresource_input_container = document.createElement("div");
+    subresource_input_container.classList.add("subresource_input_container");
+
+    subresource_input_container.classList.add("inputType_"+this.type);
     console.log(this.type);
 
     const inputElements = this.subresourceTogleElement("Vstupní parametry");
+    inputElements.body.appendChild(subresource_input_container)
     subresource_input.appendChild(inputElements.title);
     subresource_input.appendChild(inputElements.body);
     let input_others;
@@ -102,7 +112,7 @@ export default class Subresource {
     if (this.type === "others") {
       // Create element
       input_others = this.inputsClass.input_others();
-      inputElements.body.appendChild(input_others.input_others_div);
+      subresource_input_container.appendChild(input_others.input_others_div);
       // Unable element default is none
       input_others.input_others_div.style.display = "block";
 
@@ -123,7 +133,7 @@ export default class Subresource {
       // CREATE INPUT HOUSE APPARTMENT
       if (this.type === "housing") {
         inputs_appartments = this.inputsClass.inputsAppartments();
-        inputElements.body.appendChild(
+        subresource_input_container.appendChild(
           inputs_appartments.inputs_appartments_div
         );
 
@@ -133,7 +143,7 @@ export default class Subresource {
 
       // CREATE INPUT HPPP
       hppInput = this.inputsClass.inputsHpp();
-      inputElements.body.appendChild(hppInput.inputs_hpp_div);
+      subresource_input_container.appendChild(hppInput.inputs_hpp_div);
       // Adding class to element
       hppInput.input.classList.add("input_hpp");
 
@@ -141,7 +151,7 @@ export default class Subresource {
       if (this.type === "production") {
         inputs_production = this.inputsClass.inputsProduction();
         inputs_production.inputs_production_div.style.display = "block";
-        inputElements.body.appendChild(inputs_production.inputs_production_div);
+        subresource_input_container.appendChild(inputs_production.inputs_production_div);
         // Adding class to element
         inputs_production.select.classList.add("input_production");
       }
@@ -151,12 +161,12 @@ export default class Subresource {
         hppInput.input.classList.add("largeStore_hpp");
       }
     }
-    this.coppyInputValue(
+/*     this.coppyInputValue(
       inputs_appartments,
       hppInput,
       input_others,
       inputs_production
-    );
+    ); */
     return {
       mainElement: subresource_input,
       others: input_others,
@@ -166,7 +176,7 @@ export default class Subresource {
     };
   }
 
-  coppyInputValue(
+/*   coppyInputValue(
     inputs_appartments,
     hppInput,
     input_others,
@@ -199,7 +209,7 @@ export default class Subresource {
           this.inputs.input.inputs_production.select.value;
       }
     }
-  }
+  } */
 
   subresourceResource(subresourcInput) {
     let subresource_resource = document.createElement("div");
@@ -213,19 +223,19 @@ export default class Subresource {
       selectedIndex = selectedIndex + 1;
     }
 
-    let bike = this.subresourceCalculation("bike", selectedIndex, subresourcInput);
-    let car = this.subresourceCalculation("car", selectedIndex, subresourcInput);
+ /*    let bike = this.subresourceCalculation("bike", selectedIndex, subresourcInput);
+    let car = this.subresourceCalculation("car", selectedIndex, subresourcInput); */
 
-    let carElement = this.createSubresourceElements(car, "Osobní automobil");
+    let carElement = this.createSubresourceElements(0, "Osobní automobil");
     inputElements.body.appendChild(carElement.mainElement);
     let carApartmentElement;
     if(this.type === "housing"){
 
-      carApartmentElement = this.createSubresourceElements(car.carToApartments, "Po přepočtu max. 2 stání na byt");
+      carApartmentElement = this.createSubresourceElements(0, "Po přepočtu max. 2 stání na byt");
       inputElements.body.appendChild(carApartmentElement.mainElement);
     }
 
-    let bikeElement = this.createSubresourceElements(bike, "Jízdní kola");
+    let bikeElement = this.createSubresourceElements(0, "Jízdní kola");
     inputElements.body.appendChild(bikeElement.mainElement);
 
 
@@ -253,9 +263,9 @@ export default class Subresource {
     carApartmentElement
   ) {
     if(type === "housing"){
-      console.log(subresourcInput)
+
       subresourcInput.housingApparments.input.addEventListener("change", () => {
-        console.log("update")
+
         this.calculateOnChange(
           bikeElement,
           carElement,
@@ -266,7 +276,7 @@ export default class Subresource {
       }); 
     }
     if (type !== "others") {
-      console.log(subresourcInput.hppInput.input);
+
 
       subresourcInput.hppInput.input.addEventListener("change", () => {
         this.calculateOnChange(
@@ -328,7 +338,7 @@ export default class Subresource {
       );
     }
 
-    console.log(type);
+
   }
 
   calculateOnChange(bikeElement, carElement, selectedIndex, subresourcInput,carApartmentElement) {
@@ -342,7 +352,7 @@ export default class Subresource {
       selectedIndex,
       subresourcInput
     );
-    console.log(selectedIndex);
+
 
     bikeElement.bound.text.innerHTML = bike.bound;
     bikeElement.visitors.text.innerHTML = bike.visitors;
@@ -372,9 +382,9 @@ export default class Subresource {
       div.appendChild(h2);
     }
 
-    let bound = this.createDescriptionText("Vázana:", count.bound);
-    let visitors = this.createDescriptionText("Navštěvnická:", count.visitors);
-    let sum = this.createDescriptionText("Celkem:", count.sum);
+    let bound = this.createDescriptionText("Vázana:", count);
+    let visitors = this.createDescriptionText("Navštěvnická:", count);
+    let sum = this.createDescriptionText("Celkem:", count);
     div.appendChild(bound.mainElement);
     div.appendChild(visitors.mainElement);
     div.appendChild(sum.mainElement);
@@ -397,7 +407,7 @@ export default class Subresource {
   }
 
   subresourceInputChange(car, bike, selectedIndex, subresourcInput) {
-    console.log(subresourcInput);
+ 
     subresourcInput.hppInput.input.addEventListener("change", () => {
       const usage = this.inputs.input.objectArray;
       let carBound =
@@ -516,7 +526,7 @@ let carToApartments;
     let bikeBound;
     let bikeVisitors;
     if (this.type === "others") {
-      console.log(subresourcInput);
+    
       bikeBound = subresourcInput.others.input_others__bikeBound.value;
       bikeVisitors = subresourcInput.others.input_others__bikeVisitors.value;
     } else {

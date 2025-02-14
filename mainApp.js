@@ -3,6 +3,7 @@ import Carousel from "./carousel";
 import variables from "./variables";
 import Count from "./Count";
 
+
 export default class MainApp {
   constructor(data) {
     this.json = data;
@@ -24,9 +25,12 @@ export default class MainApp {
      this.data = data
 
      this.inputs =new Inputs(this.json);
+     
   }
   addData() {
     let inputs = this.inputs.addAllInputs();
+
+
     
     const carousel = document.querySelector(".carousel");
     const variants = document.createElement("div");
@@ -52,7 +56,6 @@ export default class MainApp {
    
     this.checkVariantsNumberRemove()
   }
-
 
   checkVariantsNumberRemove(){
     let variants_slider = document.querySelector(".variants_number");

@@ -1,10 +1,11 @@
 let tableElements;
 let tableResourceBike;
+import MainBloks from "./MainBloks";
 export default class Resource{
 constructor(){
 console.log("pikacu utoci")
 
-
+   this.mainBloks =new MainBloks();
 }
 
 mainCount(){
@@ -29,6 +30,8 @@ createBikeElement(){
     const h1 =  document.createElement("h1")
     const h2 =  document.createElement("h2")
 /*     const table =  document.createElement("table") */
+
+
     h1.innerHTML = "Výsledky"
     resoults.appendChild(h1)
 

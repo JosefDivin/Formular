@@ -1,5 +1,6 @@
 import Subresource from "./Subresource";
 import Resource from "./Resource";
+import MainBloks from "./MainBloks";
 export default class Count {
   constructor(data, inputs, variantsHTMLElement) {
     console.log(inputs);
@@ -7,7 +8,7 @@ export default class Count {
     this.data = data;
     
         this.resource = new Resource();
-        
+        this.mainBloks =new MainBloks();
     
     if (inputs) {
       this.variantsHTMLElement = variantsHTMLElement;
@@ -26,14 +27,28 @@ export default class Count {
     let button = document.createElement("button");
     button.innerHTML = "Přidat";
 
+    let buttonZone = document.createElement("button");
+    buttonZone.innerHTML = "Vyhledat";
+
+    let mainElement = this.mainBloks.mainElement("Vstupy")
+
+    let mainElementVysledky = this.mainBloks.mainElement("Výsledky")
+
     butonContainer.classList.add("addButton");
     subResoults.classList.add("subResoults");
     resoults.classList.add("resoults");
-    butonContainer.appendChild(button);
 
+
+    butonContainer.appendChild(button);
+    butonContainer.appendChild(buttonZone);
+
+    mainElement.activSection_pasiv.appendChild(subResoults);
+    mainElementVysledky.activSection_pasiv.appendChild(resoults);
     this.variantsHTMLElement.appendChild(butonContainer);
-    this.variantsHTMLElement.appendChild(subResoults);
-    this.variantsHTMLElement.appendChild(resoults);
+    //this.variantsHTMLElement.appendChild(subResoults);
+
+    this.variantsHTMLElement.appendChild(mainElement.mainElemnt);
+    this.variantsHTMLElement.appendChild(mainElementVysledky.mainElemnt);
   
     setTimeout(() => {
       this.resource.crateElements()
@@ -134,6 +149,7 @@ export default class Count {
       options[selectedIndex].hidden = false;
       this.selectFirstUnhideLine();
       this.resource.mainCount()
+    
     });
   }
 
@@ -147,24 +163,26 @@ export default class Count {
         break;
       }
     }
+    this.setType()
   }
 
   changeUseType() {
+
     let slect = this.inputs.input.inputs_usage;
-    let input__apartmentNumbet =
-      this.inputs.input.inputs_apartments.inputs_appartments_div;
-    let inputs_hpp = this.inputs.input.inputs_hpp.inputs_hpp_div;
-    let input_hppStani =
-      this.inputs.input.inputs_production.inputs_production_div;
-    let input_others = this.inputs.input.input_others.input_others_div;
-    slect.addEventListener("click", () => {
+    slect.addEventListener("change", () => {
+      this.setType()
+    }); 
+
+  }
+
+
+  setType(){
+   
+    let slect = this.inputs.input.inputs_usage;
       this.type = "remian";
       if (slect.selectedIndex === 0) {
-        input__apartmentNumbet.style.display = "block";
         this.type = "housing";
-      } else {
-        input__apartmentNumbet.style.display = "none";
-      }
+      } 
 
       if (slect.selectedIndex === 4) {
         this.type = "largeStore";
@@ -175,19 +193,10 @@ export default class Count {
 
       if (slect.selectedIndex === 28) {
         this.type = "production";
-        input_hppStani.style.display = "block";
-      } else {
-        input_hppStani.style.display = "none";
-      }
+      } 
 
       if (slect.selectedIndex > 29) {
         this.type = "others";
-        input_others.style.display = "block";
-        inputs_hpp.style.display = "none";
-      } else {
-        input_others.style.display = "none";
-        inputs_hpp.style.display = "block";
-      }
-    });
+      } 
   }
 }

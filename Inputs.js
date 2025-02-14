@@ -1,54 +1,41 @@
 export default class Inputs {
   constructor(data) {
     this.json = data;
-
+    this.zons = data.zons;
     this.mainTab = data.mainTab;
     this.objectArray;
-
   }
 
-  addAllInputs(){
+  addAllInputs() {
     this.inputsHTML = document.createElement("div");
-    this.inputsHTML.classList.add("inputs")
+    this.inputsHTML.classList.add("inputs");
     this.input = this.inputs();
 
     this.inputsHTML.appendChild(this.input.inputsDIV);
     return {
       inputsHTML: this.inputsHTML,
-      input: this.input
-    }
+      input: this.input,
+    };
   }
 
   inputs() {
     const inputsDIV = document.createElement("div");
-    const inputs_usage = this.inputsUsage();
-    const inputs_apartments = this.inputsAppartments()
+   /*  const inputs_usage = this.inputsUsage(); */
 
-    const inputs_hpp = this.inputsHpp();
-    const inputs_production = this.inputsProduction();
+    const inputsSelect = this.inputsSelects()
 
-    const input_others = this.input_others();
+    inputsDIV.appendChild(inputsSelect.mainElement);
 
-
-    inputsDIV.appendChild(inputs_usage);
-    inputsDIV.appendChild(inputs_apartments.inputs_appartments_div);
-    inputsDIV.appendChild(inputs_hpp.inputs_hpp_div);
-    
-    inputsDIV.appendChild(inputs_production.inputs_production_div);
-    inputsDIV.appendChild(input_others.input_others_div);
     return {
       inputsDIV: inputsDIV,
-      inputs_usage: inputs_usage,
-      inputs_apartments: inputs_apartments,
-      inputs_hpp: inputs_hpp,
-      inputs_production: inputs_production,
-      input_others: input_others,
-      objectArray: this.objectArray
+      inputs_usage: inputsSelect.inputs_usage,
+      objectArray: this.objectArray,
     };
   }
 
   inputsUsage() {
     // Create selector by usage
+
     const inputs_usage = document.createElement("select");
     inputs_usage.classList.add("inputs_usage");
     const createOption = (name, id, i) => {
@@ -75,7 +62,6 @@ export default class Inputs {
     let selector = 0;
     for (let i = 0; i < this.mainTab.length; i++) {
       for (let k = 0; k < this.mainTab[i].usage.length; k++) {
-
         this.objectArray.push(this.mainTab[i].usage[k]);
         if (counter !== 1) {
           createOption(this.mainTab[i].usage[k].name, this.mainTab[i].id, i);
@@ -86,6 +72,52 @@ export default class Inputs {
     }
 
     return inputs_usage;
+  }
+
+  inputZone() {
+    const inputs_zon = document.createElement("select");
+    for (let i = 0; i < this.zons.length; i++) {
+      console.log(this.zons[i]);
+      let option = document.createElement("option");
+      option.innerHTML = this.zons[i].zon;
+      inputs_zon.appendChild(option)
+
+    }
+    return inputs_zon
+  }
+
+  inputsSelects() {
+    const mainElement = document.createElement("div");
+    const usageWraper = document.createElement("div");
+    const zonWraper = document.createElement("div");
+    const usageTitle = document.createElement("p");
+    const zonTitle = document.createElement("p");
+    mainElement.classList.add("inputs_selects");
+    usageWraper.classList.add("inputs_select__usage");
+    zonWraper.classList.add("inputs_select__zon");
+
+    const inputs_usage = this.inputsUsage();
+    const inputs_zon =this.inputZone()
+
+    usageTitle.innerHTML = "Účel využití";
+    zonTitle.innerHTML = "Zóna";
+
+    usageWraper.appendChild(usageTitle);
+    usageWraper.appendChild(inputs_usage);
+    zonWraper.appendChild(zonTitle);
+    zonWraper.appendChild(inputs_zon);
+
+    mainElement.appendChild(usageWraper);
+    mainElement.appendChild(zonWraper);
+    return {
+      mainElement: mainElement,
+      usageWraper: usageWraper,
+      zonWraper: zonWraper,
+      usageTitle: usageTitle,
+      zonTitle: zonTitle,
+      inputs_usage: inputs_usage,
+      inputs_zon: inputs_zon
+    };
   }
 
   inputsHpp() {
@@ -112,7 +144,7 @@ export default class Inputs {
     const input = document.createElement("input");
     inputs_appartments.classList.add("inputs_appartments");
     let p = document.createElement("p");
-    p.innerHTML = "Počet bytů (při uplanění max. 2 stání na byt)";
+    p.innerHTML = "Počet bytů <p>při uplanění max. 2 stání na byt<p>";
 
     input.type = "number";
     input.value = 0;
@@ -144,7 +176,6 @@ export default class Inputs {
     };
 
     for (let i = 0; i < inputsValues.length; i++) {
-
       createOption(inputsValues[i]);
     }
 
@@ -162,7 +193,7 @@ export default class Inputs {
     const h4 = document.createElement("h4");
 
     h4.innerHTML = "Základní počet stání";
-    input_others.appendChild(h4)
+    input_others.appendChild(h4);
     const inputOthers = (cssSelector) => {
       const h5 = document.createElement("h5");
 
@@ -199,7 +230,6 @@ export default class Inputs {
       return {
         input_others_bound: bound.input,
         input_others_visitors: visitors.input,
-        
       };
     };
 
