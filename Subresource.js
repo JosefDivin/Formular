@@ -1,15 +1,18 @@
-import Inputs from "./Inputs";
-import Resource from "./Resource";
+import Inputs from "./Inputs.js";
+import Resource from "./Resource.js";
+import MainBloks from "./MainBloks.js";
 
 export default class Subresource {
-  constructor(data, type, inputs) {
+  constructor(data, type, inputs, variantCounter, subrsourceHTML) {
+    this.variantCounter = variantCounter;
     this.type = type;
     this.inputs = inputs;
     this.data = data;
     this.inputsClass = new Inputs(this.data);
-
-    this.resource = new Resource();
-   
+    this.mainBloks = new MainBloks();
+    this.subrsourceHTML = subrsourceHTML;
+    console.log(this.subrsourceHTML);
+    this.resource = new Resource(variantCounter, this.inputs, this.data);
   }
   createDescriptionText(title, text) {
     const div = document.createElement("div");
@@ -37,7 +40,7 @@ export default class Subresource {
     const number = this.createDescriptionText("Číslo:", cislo);
     const name = this.createDescriptionText("Účel užívání:", type);
     const descriptionContainer = document.createElement("div");
-    descriptionContainer.classList.add("subersources__description")
+    descriptionContainer.classList.add("subersources__description");
     descriptionContainer.appendChild(number.mainElement);
     descriptionContainer.appendChild(name.mainElement);
 
@@ -45,7 +48,7 @@ export default class Subresource {
 
     const subresourcResource = this.subresourceResource(subresourcInput);
     bodyContainer.appendChild(descriptionContainer);
-  
+
     bodyContainer.appendChild(subresourcInput.mainElement);
     bodyContainer.appendChild(subresourcResource.mainElement);
     setTimeout(() => {
@@ -96,11 +99,10 @@ export default class Subresource {
     let subresource_input_container = document.createElement("div");
     subresource_input_container.classList.add("subresource_input_container");
 
-    subresource_input_container.classList.add("inputType_"+this.type);
-    console.log(this.type);
+    subresource_input_container.classList.add("inputType_" + this.type);
 
     const inputElements = this.subresourceTogleElement("Vstupní parametry");
-    inputElements.body.appendChild(subresource_input_container)
+    inputElements.body.appendChild(subresource_input_container);
     subresource_input.appendChild(inputElements.title);
     subresource_input.appendChild(inputElements.body);
     let input_others;
@@ -151,7 +153,9 @@ export default class Subresource {
       if (this.type === "production") {
         inputs_production = this.inputsClass.inputsProduction();
         inputs_production.inputs_production_div.style.display = "block";
-        subresource_input_container.appendChild(inputs_production.inputs_production_div);
+        subresource_input_container.appendChild(
+          inputs_production.inputs_production_div
+        );
         // Adding class to element
         inputs_production.select.classList.add("input_production");
       }
@@ -161,12 +165,6 @@ export default class Subresource {
         hppInput.input.classList.add("largeStore_hpp");
       }
     }
-/*     this.coppyInputValue(
-      inputs_appartments,
-      hppInput,
-      input_others,
-      inputs_production
-    ); */
     return {
       mainElement: subresource_input,
       others: input_others,
@@ -175,41 +173,6 @@ export default class Subresource {
       production: inputs_production,
     };
   }
-
-/*   coppyInputValue(
-    inputs_appartments,
-    hppInput,
-    input_others,
-    inputs_production
-  ) {
-    if (this.type === "others") {
-      // Copy value from input OTHERS
-      input_others.input_others__carVisitors.value =
-        this.inputs.input.input_others.input_others__carVisitors.value;
-      input_others.input_others__carBound.value =
-        this.inputs.input.input_others.input_others__carBound.value;
-      input_others.input_others__bikeVisitors.value =
-        this.inputs.input.input_others.input_others__bikeVisitors.value;
-      input_others.input_others__bikeBound.value =
-        this.inputs.input.input_others.input_others__bikeBound.value;
-    } else {
-      // Copy value from input HPP
-      const inputValue = this.inputs.input.inputs_hpp.input.value;
-      hppInput.input.value = inputValue;
-
-      if (this.type === "housing") {
-        // Copy value from input appartments to car
-        inputs_appartments.input.value =
-          this.inputs.input.inputs_apartments.input.value;
-      }
-
-      // CREATE INPUT PRODUCTION
-      if (this.type === "production") {
-        inputs_production.select.value =
-          this.inputs.input.inputs_production.select.value;
-      }
-    }
-  } */
 
   subresourceResource(subresourcInput) {
     let subresource_resource = document.createElement("div");
@@ -223,31 +186,64 @@ export default class Subresource {
       selectedIndex = selectedIndex + 1;
     }
 
- /*    let bike = this.subresourceCalculation("bike", selectedIndex, subresourcInput);
-    let car = this.subresourceCalculation("car", selectedIndex, subresourcInput); */
+    let carElement = this.mainBloks.createTable(
+      "Osobní atuomobil",
+      ["Vázana", "Návštěvnická", "Celkem"],
+      [0, 0, 0]
+    );
 
-    let carElement = this.createSubresourceElements(0, "Osobní automobil");
     inputElements.body.appendChild(carElement.mainElement);
-    let carApartmentElement;
-    if(this.type === "housing"){
 
-      carApartmentElement = this.createSubresourceElements(0, "Po přepočtu max. 2 stání na byt");
-      inputElements.body.appendChild(carApartmentElement.mainElement);
+    let appartmentsValues;
+    if (this.type === "housing") {
+
+      let appartmentsSubtitle = this.mainBloks.createColumns(
+        ["<i>Po přepočtu max. 2 stání na byt</i>"],
+        "subTitle"
+      );
+      appartmentsValues = this.mainBloks.createColumns([0, 0, 0], "value");
+      const inputValue = appartmentsValues
+      console.log(inputValue.values
+      )
+      this.addingResourceCssClass(
+        inputValue.values,
+        inputValue.values,
+        "Apartments"
+      );
+      carElement.mainElement.appendChild(appartmentsSubtitle.mainElement);
+      carElement.mainElement.appendChild(appartmentsValues.mainElement);
+
+
+    }else{
+      this.addingResourceCssClass(
+        carElement.values,
+        carElement.values,
+        "Osobní atuomobil"
+      );
+
     }
+    let bikeElement = this.mainBloks.createTable(
+      "Jízdní kola",
+      ["Vázana", "Návštěvnická", "Celkem"],
+      [0, 0, 0]
+    );
+    console.log(carElement)
 
-    let bikeElement = this.createSubresourceElements(0, "Jízdní kola");
+    this.addingResourceCssClass(
+      bikeElement.values,
+      bikeElement.values,
+      "Jízdní kola"
+    );
+
     inputElements.body.appendChild(bikeElement.mainElement);
-
-
 
     this.subresourceChange(
       this.type,
-      bikeElement,
-      carElement,
+      bikeElement.values,
+      carElement.values,
       selectedIndex,
       subresourcInput,
-      carApartmentElement
-
+      appartmentsValues
     );
     return {
       mainElement: subresource_resource,
@@ -262,10 +258,8 @@ export default class Subresource {
     subresourcInput,
     carApartmentElement
   ) {
-    if(type === "housing"){
-
+    if (type === "housing") {
       subresourcInput.housingApparments.input.addEventListener("change", () => {
-
         this.calculateOnChange(
           bikeElement,
           carElement,
@@ -273,11 +267,9 @@ export default class Subresource {
           subresourcInput,
           carApartmentElement
         );
-      }); 
+      });
     }
     if (type !== "others") {
-
-
       subresourcInput.hppInput.input.addEventListener("change", () => {
         this.calculateOnChange(
           bikeElement,
@@ -337,11 +329,15 @@ export default class Subresource {
         }
       );
     }
-
-
   }
 
-  calculateOnChange(bikeElement, carElement, selectedIndex, subresourcInput,carApartmentElement) {
+  calculateOnChange(
+    bikeElement,
+    carElement,
+    selectedIndex,
+    subresourcInput,
+    carApartmentElement
+  ) {
     let bike = this.subresourceCalculation(
       "bike",
       selectedIndex,
@@ -353,61 +349,71 @@ export default class Subresource {
       subresourcInput
     );
 
+    bikeElement.values[0].innerHTML = bike.bound;
+    bikeElement.values[1].innerHTML = bike.visitors;
+    bikeElement.values[2].innerHTML = bike.sum;
 
-    bikeElement.bound.text.innerHTML = bike.bound;
-    bikeElement.visitors.text.innerHTML = bike.visitors;
-    bikeElement.sum.text.innerHTML = bike.sum;
+    carElement.values[0].innerHTML = car.bound;
+    carElement.values[1].innerHTML = car.visitors;
+    carElement.values[2].innerHTML = car.sum;
 
-    carElement.bound.text.innerHTML = car.bound;
-    carElement.visitors.text.innerHTML = car.visitors;
-    carElement.sum.text.innerHTML = car.sum;
-
-    if(carApartmentElement){
-      carApartmentElement.bound.text.innerHTML = car.carToApartments.bound;
-      carApartmentElement.visitors.text.innerHTML = car.carToApartments.visitors;
-      carApartmentElement.sum.text.innerHTML = car.carToApartments.sum;
+    if (carApartmentElement) {
+      carApartmentElement.values[0].innerHTML = car.carToApartments.bound;
+      carApartmentElement.values[1].innerHTML = car.carToApartments.visitors;
+      carApartmentElement.values[2].innerHTML = car.carToApartments.sum;
     }
   }
 
-  createSubresourceElements(count, title) {
-    let div = document.createElement("div");
-    if(title ==="Po přepočtu max. 2 stání na byt"){
-      let p = document.createElement("p");
-      p.innerHTML = title;
-      p.classList.add("appartments_title")
-      div.appendChild(p);
-    }else{
-      let h2 = document.createElement("h2");
-      h2.innerHTML = title;
-      div.appendChild(h2);
+
+  addingResourceCssClass(bound, visitors, title) {
+    // Adding class for Resourece count
+    console.log(title)
+    console.log(bound)
+    if (title === "Jízdní kola") {
+      bound.values[0].classList.add(
+        "resource_bike__bound_" + this.variantCounter
+      );
+      visitors.values[1].classList.add(
+        "resource_bike__visitors_" + this.variantCounter
+      );
     }
 
-    let bound = this.createDescriptionText("Vázana:", count);
-    let visitors = this.createDescriptionText("Navštěvnická:", count);
-    let sum = this.createDescriptionText("Celkem:", count);
-    div.appendChild(bound.mainElement);
-    div.appendChild(visitors.mainElement);
-    div.appendChild(sum.mainElement);
-    this.addingResourceCssClass(bound,visitors, title)
-
-    return {
-      mainElement: div,
-      bound: bound,
-      visitors: visitors,
-      sum: sum,
-    };
-  }
-
-  addingResourceCssClass(bound,visitors, title){
-    if(title === "Jízdní kola"){
-      bound.text.classList.add("resource_bike__bound")
-      visitors.text.classList.add("resource_bike__visitors")
+    if (title === "Apartments") {
+      
+      bound[0].classList.add(
+        "resource_carHousing__bound_" + this.variantCounter
+      );
+      visitors[1].classList.add(
+        "resource_carHousing__visitors_" + this.variantCounter
+      );
     }
+    if(title === "Osobní atuomobil"){
 
+      if(this.type !== "housing"){
+        bound.values[0].classList.add(
+          "resource_carOthers__bound_" + this.variantCounter
+        );
+        visitors.values[1].classList.add(
+          "resource_carOthers__visitors_" + this.variantCounter
+        );
+      }
+
+      if(this.type === "healthcare"){
+
+        visitors.values[1].classList.add(
+          "resource_largeStore__visitors" + this.variantCounter
+        );
+      }
+      if(this.type === "largeStore"){
+        visitors.values[1].classList.add(
+          "resource_healthcare__visitors" + this.variantCounter
+        );
+      }
+     
+    }
   }
 
   subresourceInputChange(car, bike, selectedIndex, subresourcInput) {
- 
     subresourcInput.hppInput.input.addEventListener("change", () => {
       const usage = this.inputs.input.objectArray;
       let carBound =
@@ -433,13 +439,13 @@ export default class Subresource {
       let sumCar = carBound + carVisitors;
       let sumBike = bikeBound + bikeVisitors;
 
-      car.bound.text.innerHTML = Math.round(carBound * 100) / 100;
-      car.visitors.text.innerHTML = Math.round(carVisitors * 100) / 100;
-      bike.bound.text.innerHTML = Math.round(bikeBound * 100) / 100;
-      bike.visitors.text.innerHTML = Math.round(bikeVisitors * 100) / 100;
+      car.values[0].innerHTML = Math.round(carBound * 100) / 100;
+      car.values[1].innerHTML = Math.round(carVisitors * 100) / 100;
+      bikevalues[0].innerHTML = Math.round(bikeBound * 100) / 100;
+      bike.values[1].innerHTML = Math.round(bikeVisitors * 100) / 100;
 
-      car.sum.text.innerHTML = Math.round(sumCar * 100) / 100;
-      bike.sum.text.innerHTML = Math.round(sumBike * 100) / 100;
+      car.values[2].innerHTML = Math.round(sumCar * 100) / 100;
+      bike.values[2].innerHTML = Math.round(sumBike * 100) / 100;
 
       setTimeout(() => {
         this.resource.mainCount();
@@ -485,7 +491,7 @@ export default class Subresource {
           usage[selectedIndex].values_1.visitors) /
         100;
     }
-let carToApartments;
+    let carToApartments;
     if (this.type === "housing") {
       const boundApartment = this.countCarToApartment(
         subresourcInput.housingApparments.input.value,
@@ -500,14 +506,13 @@ let carToApartments;
         carVisitors
       );
 
-
-      let sumCarApartments = boundApartment + visitorsApartment
+      let sumCarApartments = boundApartment + visitorsApartment;
 
       carToApartments = {
         bound: Math.round(boundApartment * 100) / 100,
         visitors: Math.round(visitorsApartment * 100) / 100,
-        sum: Math.round(sumCarApartments * 100) / 100
-      }
+        sum: Math.round(sumCarApartments * 100) / 100,
+      };
     }
 
     let sumCar = Number(carBound) + Number(carVisitors);
@@ -518,7 +523,7 @@ let carToApartments;
       bound: Math.round(carBound * 100) / 100,
       visitors: Math.round(carVisitors * 100) / 100,
       sum: Math.round(sumCar * 100) / 100,
-      carToApartments: carToApartments
+      carToApartments: carToApartments,
     };
   }
   subresourceCalculationBike(selectedIndex, subresourcInput) {
@@ -526,7 +531,6 @@ let carToApartments;
     let bikeBound;
     let bikeVisitors;
     if (this.type === "others") {
-    
       bikeBound = subresourcInput.others.input_others__bikeBound.value;
       bikeVisitors = subresourcInput.others.input_others__bikeVisitors.value;
     } else {
@@ -551,7 +555,6 @@ let carToApartments;
     };
   }
 
-
   countCarToApartment(
     carToApartments,
     carSum,
@@ -567,5 +570,4 @@ let carToApartments;
 
     return resource;
   }
-
 }

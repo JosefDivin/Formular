@@ -30,6 +30,7 @@ export default class Inputs {
       inputsDIV: inputsDIV,
       inputs_usage: inputsSelect.inputs_usage,
       objectArray: this.objectArray,
+      input_zone: inputsSelect.inputs_zon
     };
   }
 
@@ -77,7 +78,6 @@ export default class Inputs {
   inputZone() {
     const inputs_zon = document.createElement("select");
     for (let i = 0; i < this.zons.length; i++) {
-      console.log(this.zons[i]);
       let option = document.createElement("option");
       option.innerHTML = this.zons[i].zon;
       inputs_zon.appendChild(option)

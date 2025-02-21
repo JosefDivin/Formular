@@ -1,18 +1,21 @@
-import Subresource from "./Subresource";
-import Resource from "./Resource";
-import MainBloks from "./MainBloks";
+import Subresource from "./Subresource.js";
+import Resource from "./Resource.js";
+import MainBloks from "./MainBloks.js";
 export default class Count {
-  constructor(data, inputs, variantsHTMLElement) {
-    console.log(inputs);
+  constructor(data, inputs, variantsHTMLElement,variantCounter) {
+
     this.inputs = inputs;
+    this.variantCounter = variantCounter
     this.data = data;
     
-        this.resource = new Resource();
+        this.resource = new Resource(variantCounter, this.inputs,    this.data);
         this.mainBloks =new MainBloks();
     
     if (inputs) {
       this.variantsHTMLElement = variantsHTMLElement;
       this.containers = this.crateContainers();
+
+      this.subrsourceHTML;
       this.changeUseType();
       this.addButton();
     }
@@ -39,6 +42,8 @@ export default class Count {
     resoults.classList.add("resoults");
 
 
+    this.subrsourceHTML = subResoults
+
     butonContainer.appendChild(button);
     butonContainer.appendChild(buttonZone);
 
@@ -51,7 +56,7 @@ export default class Count {
     this.variantsHTMLElement.appendChild(mainElementVysledky.mainElemnt);
   
     setTimeout(() => {
-      this.resource.crateElements()
+      this.resource.crateElements(resoults)
     }, 50);
     return {
       addButton: button,
@@ -103,7 +108,7 @@ export default class Count {
 
   addButton() {
     this.containers.addButton.addEventListener("click", () => {
-      console.log(this.inputs.input.inputs_usage.selectedIndex);
+
       let mainLement = document.createElement("div");
       const selectedIndex = this.inputs.input.inputs_usage.selectedIndex;
       const options = this.inputs.input.inputs_usage.childNodes;
@@ -113,7 +118,9 @@ export default class Count {
 
       mainLement.appendChild(title.titleElement);
       this.containers.subResoults.appendChild(mainLement);
-      this.subresource = new Subresource(this.data,this.type, this.inputs)
+console.log(this.containers)
+
+      this.subresource = new Subresource(this.data,this.type, this.inputs,     this.variantCounter, this.containers)
 
       
       let bodyContainer = this.subresource.subresourceBody();

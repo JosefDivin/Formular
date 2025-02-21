@@ -1,7 +1,8 @@
-import Inputs from "./Inputs";
-import Carousel from "./carousel";
-import variables from "./variables";
-import Count from "./Count";
+import Inputs from "./Inputs.js";
+import Carousel from "./carousel.js";
+import variables from "./variables.js";
+import Count from "./Count.js";
+let variantCounter = 0;
 
 
 export default class MainApp {
@@ -16,6 +17,7 @@ export default class MainApp {
     );
     variants_button__add.addEventListener("click", () => {
       this.addData();
+      
     });
 
     variants_button__remove.addEventListener("click", () => {
@@ -40,11 +42,12 @@ export default class MainApp {
     variants.appendChild(inputs.inputsHTML);
 
 
-    new Count( this.data ,inputs, variants)
+    new Count( this.data ,inputs, variants,variantCounter)
     // Add carousel to main element
     carousel.appendChild(variants);
 
     this.checkVariantsNumberAddData();
+    variantCounter++
   }
 
   removeData() {

@@ -1,4 +1,4 @@
-import MainApp from "./mainApp";
+import MainApp from "./mainApp.js";
 fetch('./data.json')
     .then((response) => response.json())
     .then((json) => {

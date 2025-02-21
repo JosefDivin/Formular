@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.21/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.21/"></script>
+    <title>Document</title>
+    <style>
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .bodyElement {
+            width: 500px;
+        }
+
+        .wrapper_columns {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .wrapper_columns>p {
+            margin: 0;
+            width: 100%;
+            text-align: center;
+            padding: 5px;
+            margin: 2px;
+        }
+
+        .wrapper_columns__title>p {
+            background-color: rgb(173 173 173);
+            font-weight: bold;
+        }
+
+        .wrapper_columns__subTitle>p {
+
+            background-color: rgb(213 213 213);
+        }
+
+        .wrapper_columns__value>p {
+            background-color: #f3f3f3;
+
+        }
+
+        .wraper_table {
+            margin-bottom: 30px;
+        }
+
+        /* RESOULDS STYLE */
+
+        .results_h1__title {
+            background-color: rgb(201, 201, 201);
+            padding: 10px;
+            display: flex;
+            margin-top: 8px;
+            justify-content: space-between;
+        }
+
+        .results_h1__title>div,
+        .reoults_h2__title>div,
+        .resulds_h3__title>div {
+            cursor: pointer;
+        }
+
+        .reoults_h2__title {
+            display: flex;
+            padding: 10px;
+            justify-content: space-between;
+            background-color: #dfdede;
+            margin-top: 2px;
+            border-radius: 2px;
+        }
+
+        .resulds_h3__title {
+            display: flex;
+            padding: 10px;
+            justify-content: space-between;
+            margin-top: 2px;
+
+            background-color: #f3f3f3;
+            border-radius: 5px;
+        }
+
+        .results_h2__container,
+        .results_h1__container {
+            margin: 5px;
+        }
+
+
+
+        .subresourcetable {
+            display: flex;
+
+        }
+
+        .subresourcetable p {
+            text-wrap: wrap;
+        }
+
+        .subresourcetable p:nth-child(1) {
+            background-color: green;
+            flex-grow: 4;
+        }
+
+        .subresourcetable p:nth-child(2) {
+            background-color: rgb(128, 9, 0);
+            flex-grow: 1;
+            width: 80px;
+        }
+
+        .subresourcetable p:nth-child(3) {
+            background-color: rgb(0, 66, 128);
+            flex-grow: 1;
+            width: 80px;
+
+        }
+
+        .subresourcetable p:nth-child(4) {
+            background-color: rgb(102, 0, 128);
+            flex-grow: 1;
+            width: 80px;
+
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            width: 25%;
+            /* Ensuring equal column width */
+        }
+
+        th {
+            background-color: #ccc;
+        }
+
+        .resource_table>tr>th:first-child {
+            width: 90%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bodyElement">
+        <!--         <div class="wraper_table">
+            <div class="wrapper_columns wrapper_columns__title">
+                <p class="columnValue">Osobní automobil</p>
+            </div>
+            <div class="wrapper_columns wrapper_columns__subTitle">
+                <p class="columnValue">Vázana</p>
+                <p class="columnValue">Návštěvnická</p>
+                <p class="columnValue">Celkem</p>
+            </div>
+            <div class="wrapper_columns wrapper_columns__value">
+                <p class="columnValue">0</p>
+                <p class="columnValue">0</p>
+                <p class="columnValue">0</p>
+            </div>
+
+
+            <div class="wrapper_columns wrapper_columns__subTitle">
+                <p class="columnValue"><i>Po přepočtu max. 2 stání na byt</i></p>
+            </div>
+            <div class="wrapper_columns wrapper_columns__value">
+                <p class="columnValue">0</p>
+                <p class="columnValue">0</p>
+                <p class="columnValue">0</p>
+
+            </div>
+        </div>
+        <div class="wraper_table">
+
+            <div class="wrapper_columns wrapper_columns__title">
+                <p class="columnValue">Jízdní kola</p>
+            </div>
+            <div class="wrapper_columns wrapper_columns__subTitle">
+                <p class="columnValue">Vázana</p>
+                <p class="columnValue">Návštěvnická</p>
+                <p class="columnValue">Celkem</p>
+            </div>
+            <div class="wrapper_columns wrapper_columns__value">
+                <p class="columnValue">0</p>
+                <p class="columnValue">0</p>
+                <p class="columnValue">0</p>
+            </div> -->
+
+
+
+        <div class="resulds">
+            <div class="results_h1__title">
+                <P>Osobní automobily</P>
+                <div class="esri-icon-up-arrow"></div>
+            </div>
+            <div class="results_h1__container">
+                <div class="reoults_h2__title">
+                    <p>Mezivýpočet</p>
+                    <div class="esri-icon-up-arrow"></div>
+                </div>
+
+                <div class="results_h2__container">
+                    <div class="resulds_h3__title">
+                        <p>Bydlení</p>
+                        <div class="esri-icon-up-arrow"></div>
+                    </div>
+                    <div class="resutls_h3__container">
+
+
+                    </div>
+
+                    <div class="resulds_h3__title">
+                        <p>Ostatní funkce</p>
+                        <div class="esri-icon-up-arrow"></div>
+                    </div>
+                    <div class="resutls_h3__container">
+
+                    </div>
+                </div>
+
+                <div class="reoults_h2__title">
+                    <p>Výsledky</p>
+                    <div class="esri-icon-up-arrow"></div>
+                </div>
+                <div class="results_h2__container"></div>
+
+
+
+            </div>
+
+            <div class="results_h1__title">
+                <p>Jízdní kola</p>
+                <div class="esri-icon-up-arrow"></div>
+            </div>
+            <div class="results_h1__container"></div>
+        </div>
+
+
+
+
+    </div>
+    <script>
+        function createTogleElement(inputHTML, activeElClass, pasivElClass, title){
+            function togleElement(activElement,pasiveElement){
+                activElement.addEventListener("click", ()=>{
+                    if(arrow.classList.contains("esri-icon-up-arrow")){
+                        pasiveElement.style.display="none"
+                        arrow.classList.remove("esri-icon-up-arrow")
+                        arrow.classList.add("esri-icon-down-arrow")
+                    }else{
+                        pasiveElement.style.display="block"
+                        arrow.classList.add("esri-icon-up-arrow")
+                        arrow.classList.remove("esri-icon-down-arrow")
+                    }
+                })
+            }
+            let activElement = document.createElement("div")
+            let p = document.createElement("p")
+            let arrow = document.createElement("div")
+            let pasiveElement =  document.createElement("div")
+            p.innerHTML = title;
+
+            arrow.classList.add("esri-icon-up-arrow")
+
+            activElement.classList.add(activeElClass)
+            activElement.appendChild(p)
+            activElement.appendChild(arrow)
+            pasiveElement.classList.add(pasivElClass)
+
+            inputHTML.appendChild(activElement)
+            inputHTML.appendChild(pasiveElement)
+
+            togleElement(arrow,pasiveElement)
+            return {
+                activElement: activElement,
+                pasiveElement: pasiveElement
+            }
+        }
+
+
+
+        function createColumns(inputArray, type) {
+            const wrapper_columns = document.createElement("div")
+
+            wrapper_columns.classList.add("wrapper_columns")
+            let values = []
+            for (let i = 0; i < inputArray.length; i++) {
+                const p = document.createElement("p")
+                p.innerHTML = inputArray[i]
+                p.classList.add("columnValue")
+                values.push(p)
+                wrapper_columns.appendChild(p)
+            }
+
+            if (type === "title") {
+                wrapper_columns.classList.add("wrapper_columns__title")
+            } else if (type === "subTitle") {
+                wrapper_columns.classList.add("wrapper_columns__subTitle")
+            } else {
+                wrapper_columns.classList.add("wrapper_columns__value")
+            }
+
+            return {
+                mainElement: wrapper_columns,
+                values: values
+            }
+        }
+
+
+
+        function recouseTableTitle() {
+            const tr = document.createElement("tr");
+            const titleName = ["", "Vázaná", "Návštěvnická", "Celkem"]
+
+            for (let i = 0; i < titleName.length; i++) {
+                const th = document.createElement("th");
+                th.innerHTML = titleName[i]
+                tr.appendChild(th)
+
+            }
+            return tr
+        }
+
+        function recouseTableRow(type) {
+            let variant = 1
+            const tr = document.createElement("tr")
+            const name = document.createElement("td")
+            const bound = document.createElement("td")
+            const vistiors = document.createElement("td")
+            const sum = document.createElement("td")
+
+
+
+            name.innerHTML = type
+            bound.innerHTML = 0.00
+            vistiors.innerHTML = 0.00
+            console.log(type)
+
+            if (type === "Minimální požadovaný počet stání" || type === "Maximální přípustný počet stání") {
+                console.log(type)
+                console.log("v7po3et")
+                sum.innerHTML = 0.00
+
+            } else {
+                if (type.slice(0, 10) === "Koeficient") {
+
+
+                    name.innerHTML = type + `<span class = subresurce_table__zone_${variant}></span>`
+                }
+                sum.classList.add("subresults_sum")
+                sum.innerHTML = ""
+            }
+
+            tr.appendChild(name)
+            tr.appendChild(bound)
+            tr.appendChild(vistiors)
+            tr.appendChild(sum)
+
+            return {
+                mainElement: tr,
+                name: name,
+                boudn: bound,
+                vistiors: vistiors,
+                sum: sum
+            }
+
+        }
+
+        function removeDiacriticsAndSpecialCharacters(str) {
+            // Remove diacritics by converting accented characters to their base form
+            const normalizedStr = str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+            // Remove all non-alphanumeric characters
+            const cleanedStr = normalizedStr.replace(/[^a-zA-Z0-9]/g, '');
+
+            return cleanedStr;
+        }
+        /*        let inputArray = [10, 20, 50]
+               let wraper = createColumns(inputArray, "subTitle") */
+        /*         let wraper_table = document.createElement("div")
+                wraper_table.classList.add("wraper_table")
+                const bodyElement = document.querySelector(".resutls_h3__container");
+                //wraper_table.appendChild(wraper.mainElement)
+                bodyElement.appendChild(wraper_table)
+        
+                let car = createTable("Osobní atuomobil", ["Vázana", "Návštěvnická", "Celkem"], [0, 0, 0])
+                let appartmentsSubtitle = createColumns(["<i>Po přepočtu max. 2 stání na byt</i>"], "subTitle")
+                let appartmentsValues = createColumns([0, 0, 0], "value")
+                car.mainElement.appendChild(appartmentsSubtitle.mainElement)
+                car.mainElement.appendChild(appartmentsValues.mainElement)
+                bodyElement.appendChild(car.mainElement) */
+
+        function createTable(title, subtitleArray, valuesArray) {
+            let titleEl = createColumns([title], "title")
+            let wraper_table = document.createElement("div")
+            wraper_table.classList.add("wraper_table")
+
+            wraper_table.appendChild(titleEl.mainElement)
+            let subtitleEl = createColumns(subtitleArray, "subTitle")
+            wraper_table.appendChild(subtitleEl.mainElement)
+
+            let valueEl = createColumns(valuesArray, "value")
+            wraper_table.appendChild(valueEl.mainElement)
+
+            return {
+                mainElement: wraper_table,
+                title: titleEl,
+                subTitles: subtitleEl,
+                values: valueEl
+            }
+        }
+
+        const resourceTitles = [
+            "Základní počet stání",
+            "Koeficient MIN dle zóny 03",
+            "Minimální požadovaný počet stání",
+            "Koeficient MAX dle zóny 03",
+            "Maximální přípustný počet stání"
+
+        ]
+        
+
+let resulds = document.querySelector(".resulds")
+       let element =  createTogleElement(resulds, "results_h1__title", "results_h1__container", "Osobní automobil")
+        let resutls_h3__container = element.pasiveElement
+
+        const table = document.createElement("table");
+        table.classList.add("resource_table")
+        const tableTitle = recouseTableTitle()
+        table.appendChild(tableTitle)
+        resutls_h3__container.appendChild(table)
+        for (let i = 0; i < resourceTitles.length; i++) {
+            // resultsTable2(resourceTitles[i], resutls_h3__container[0])
+
+            const tableRow = recouseTableRow(resourceTitles[i])
+            table.appendChild(tableRow.mainElement)
+
+            let selector = removeDiacriticsAndSpecialCharacters(resourceTitles[i])
+            console.log(selector)
+            //resultsTable2(resourceTitles[i], resutls_h3__container[1])
+        }
+
+
+        function resultsTable(title) {
+            let resutls_h3__container = document.querySelectorAll(".resutls_h3__container")
+            let tittleEl = createColumns([title], "subTitle")
+            let valuesEl = createColumns([0, 0, 0], "value")
+
+
+            resutls_h3__container[1].appendChild(tittleEl.mainElement)
+
+            if (title === "základní počet stání") {
+                let subtitleEl = createColumns(["Vázana", "Návštěvnická", "Celkem"], "subTitle")
+                resutls_h3__container[1].appendChild(subtitleEl.mainElement)
+            }
+
+
+            resutls_h3__container[1].appendChild(valuesEl.mainElement)
+        }
+
+        function resultsTable2(title, inputHtml) {
+
+            let tittleEl = createColumns([title], "title")
+            let valuesEl = createColumns([1000.25, 1000.25, 1000.25], "value")
+
+
+            inputHtml.appendChild(tittleEl.mainElement)
+
+
+            let subtitleEl = createColumns(["Vázana", "Návštěvnická", "Celkem"], "subTitle")
+            inputHtml.appendChild(subtitleEl.mainElement)
+
+
+
+            inputHtml.appendChild(valuesEl.mainElement)
+        }
+
+
+        let valuesEl = createColumns(["minimální požadovaný počet stání", "Vázana", "Návštěvnická", "Celkem"], "title")
+
+        resutls_h3__container.appendChild(valuesEl.mainElement)
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>

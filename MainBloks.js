@@ -17,7 +17,6 @@ export default class MainBloks{
         activSection_activ.appendChild(activSection_activ__arrow)
         activSection.appendChild(activSection_pasiv)
 
-
         activSection.classList.add("activSection")
         activSection_activ.classList.add("activSection_activ")
         activSection_pasiv.classList.add("activSection_pasiv")
@@ -30,7 +29,6 @@ export default class MainBloks{
             mainElemnt: activSection,
             activButton: activSection_activ__arrow,
             activSection_pasiv: activSection_pasiv
-
         }
 
     }
@@ -47,5 +45,106 @@ export default class MainBloks{
                 activElement.classList.remove("esri-icon-down")
             }
         })
+    }
+
+    createDescriptionText(title, text) {
+        const div = document.createElement("div");
+        const titleEl = document.createElement("p");
+        const textEl = document.createElement("p");
+        div.classList.add("descriptionText");
+    
+        titleEl.innerHTML = title;
+        textEl.innerHTML = text;
+        div.appendChild(titleEl);
+        div.appendChild(textEl);
+    
+        return {
+          mainElement: div,
+          title: titleEl,
+          text: textEl,
+        };
+      }
+
+      createColumns(inputArray, type) {
+        const wrapper_columns = document.createElement("div")
+
+        wrapper_columns.classList.add("wrapper_columns")
+        let values = []
+        for (let i = 0; i < inputArray.length; i++) {
+            const p = document.createElement("p")
+            p.innerHTML = inputArray[i]
+            p.classList.add("columnValue")
+            values.push(p)
+            wrapper_columns.appendChild(p)
+        }
+
+        if (type === "title") {
+            wrapper_columns.classList.add("wrapper_columns__title")
+        } else if (type === "subTitle") {
+            wrapper_columns.classList.add("wrapper_columns__subTitle")
+        } else {
+            wrapper_columns.classList.add("wrapper_columns__value")
+        }
+
+        return {
+            mainElement: wrapper_columns,
+            values: values
+        }
+    }
+    createTable(title, subtitleArray, valuesArray) {
+        let titleEl = this.createColumns([title], "title")
+        let wraper_table = document.createElement("div")
+        wraper_table.classList.add("wraper_table")
+
+        wraper_table.appendChild(titleEl.mainElement)
+        let subtitleEl = this.createColumns(subtitleArray, "subTitle")
+        wraper_table.appendChild(subtitleEl.mainElement)
+
+        let valueEl = this.createColumns(valuesArray, "value")
+        wraper_table.appendChild(valueEl.mainElement)
+
+        return {
+            mainElement: wraper_table,
+            title: titleEl,
+            subTitles: subtitleEl,
+            values: valueEl
+        }
+    }
+
+    createTogleElement(inputHTML, activeElClass, pasivElClass, title){
+        function togleElement(activElement,pasiveElement){
+            activElement.addEventListener("click", ()=>{
+                if(arrow.classList.contains("esri-icon-up-arrow")){
+                    pasiveElement.style.display="none"
+                    arrow.classList.remove("esri-icon-up-arrow")
+                    arrow.classList.add("esri-icon-down-arrow")
+                }else{
+                    pasiveElement.style.display="block"
+                    arrow.classList.add("esri-icon-up-arrow")
+                    arrow.classList.remove("esri-icon-down-arrow")
+                }
+            })
+        }
+        let activElement = document.createElement("div")
+        let p = document.createElement("p")
+        let arrow = document.createElement("div")
+        let pasiveElement =  document.createElement("div")
+        p.innerHTML = title;
+
+        arrow.classList.add("esri-icon-up-arrow")
+
+        activElement.classList.add(activeElClass)
+        activElement.appendChild(p)
+        activElement.appendChild(arrow)
+        pasiveElement.classList.add(pasivElClass)
+
+        inputHTML.appendChild(activElement)
+        inputHTML.appendChild(pasiveElement)
+
+        togleElement(arrow,pasiveElement)
+        return {
+            activElement: activElement,
+            pasiveElement: pasiveElement
+        }
     }
 }

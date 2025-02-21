@@ -1,4 +1,4 @@
-import variables from "./variables";
+import variables from "./variables.js";
 export default class Carousel {
   constructor(data) {
     this.data = data;

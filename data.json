@@ -8,40 +8,40 @@
     },
     "related":{
         "min": 0.00,
-        "max": null
+        "max": "-"
     }
 },
 {
     "zon": "01",
     "visitors":{
         "min": 0.15,
-        "max": null
+        "max": "-"
     },
     "related":{
         "min": 0.50,
-        "max": null
+        "max":"-"
     }
 },
 {
     "zon": "02",
     "visitors":{
         "min": 0.35,
-        "max": null
+        "max": "-"
     },
     "related":{
         "min": 0.75,
-        "max": null
+        "max": "-"
     }
 },
 {
     "zon": "03",
     "visitors":{
         "min": 0.75,
-        "max": null
+        "max": "-"
     },
     "related":{
         "min": 1.00,
-        "max": null
+        "max": "-"
     }
 }
     ],
