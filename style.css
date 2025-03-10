@@ -474,3 +474,57 @@ th {
 .subresults_sum{
    background-color: #ccc;
 }
+
+        /***************/
+        /* INPUT OTHERS*/
+        /***************/
+        .input_others__title {
+         width: 100%;
+         text-align: center;
+         padding: 10px 0px;
+         background-color: #dfdede;
+
+         margin: 5px 0px
+     }
+
+     .input_others__MainTitle{
+         width: 100%;
+         text-align: center;
+         padding: 10px 0px;
+         background-color: #c9c9c9;
+         font-weight: bold;
+         margin: 5px 0px
+     }
+
+     .input_others_inputs {
+         display: flex;
+     }
+
+     .input_others_inputs>div {
+         display: flex;
+         flex-direction: column;
+         justify-content: space-between;
+         text-align: center;
+         background-color: #f3f3f3;
+         padding: 15px;
+         margin-right: 5px;
+         border-radius: 5px;
+         width: 50%;
+     }
+
+     .input_others_inputs>div>input {
+         padding: 5px;
+     }
+
+     .input_others_inputs>div>p {
+         margin-bottom: 5px;
+     }
+
+     .input_others>div{
+      display: block;
+     }
+
+
+     .input_others__MainTitle .input_others>div{
+      display: block;
+     }

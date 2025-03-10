@@ -118,10 +118,12 @@ export default class MainBloks{
                     pasiveElement.style.display="none"
                     arrow.classList.remove("esri-icon-up-arrow")
                     arrow.classList.add("esri-icon-down-arrow")
+                    arrow.title = "Otevřít panel";
                 }else{
                     pasiveElement.style.display="block"
                     arrow.classList.add("esri-icon-up-arrow")
                     arrow.classList.remove("esri-icon-down-arrow")
+                    arrow.title = "Zavři panel";
                 }
             })
         }
@@ -130,8 +132,13 @@ export default class MainBloks{
         let arrow = document.createElement("div")
         let pasiveElement =  document.createElement("div")
         p.innerHTML = title;
-
-        arrow.classList.add("esri-icon-up-arrow")
+        // If it's subresource count
+        if(title === "Mezivýpočet"){
+            arrow.classList.add("esri-icon-down-arrow")
+            pasiveElement.style.display = "none"
+        }else{
+            arrow.classList.add("esri-icon-up-arrow")
+        }
 
         activElement.classList.add(activeElClass)
         activElement.appendChild(p)
@@ -144,7 +151,8 @@ export default class MainBloks{
         togleElement(arrow,pasiveElement)
         return {
             activElement: activElement,
-            pasiveElement: pasiveElement
+            pasiveElement: pasiveElement,
+            activButton: arrow
         }
     }
 }

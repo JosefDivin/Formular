@@ -92,34 +92,245 @@ export default class Resource {
   }
 
   mainCount() {
-    let largeStore_hpp = document.querySelector(".largeStore_hpp");
-    console.log("ZMENI<LOOS DSE SOTJSEOTS ETJIO F");
+    let largeStore_hpp = document.querySelector(
+      ".resource_largeStore__visitors_" + this.variantCounter
+    );
+    let healthcare = document.querySelector(
+      ".resource_healthcare__visitors_" + this.variantCounter
+    );
+
     let resource_carOthers__bound__bound = document.querySelectorAll(
       ".resource_carOthers__bound_" + this.variantCounter
     );
     let selectorHousing = ".resource_carHousing__bound_" + this.variantCounter;
-    console.log(selectorHousing);
+
     let resource_carHousing__bound = document.querySelector(selectorHousing);
     let resource_carHousing__visitors = document.querySelector(
       ".resource_carHousing__visitors_" + this.variantCounter
     );
-    console.log(tableElements);
-    console.log(".resource_carHousing__visitors_" + this.variantCounter);
 
-    if (largeStore_hpp) {
-      console.log(largeStore_hpp.value);
-
-      console.log(tableElements);
+    if (largeStore_hpp || healthcare) {
+      this.childernResoulds(tableElements);
+    } else {
+      tableElements.resource[4].values.values[1].innerHTML = 0;
+      tableElements.resource[4].values.values[2].innerHTML = 0;
     }
     if (resource_carHousing__visitors) {
-      console.log(resource_carHousing__visitors.innerHTML);
-      console.log(resource_carHousing__bound.innerHTML);
-
       this.buildingSubresults(tableElements.subResourceCarHousingTable);
+
+      this.housingResource(tableElements, resource_carHousing__visitors);
+    } else {
+      tableElements.resource[2].values.values[0].innerHTML = "-";
     }
     if (resource_carOthers__bound__bound) {
       this.othersSubresults(tableElements.subResourceCarOthersTable);
     }
+    this.maxStaniCount(tableElements);
+    this.minStaniCount(tableElements);
+
+    this.disabilityResource(tableElements);
+    this.calculateBike(tableElements);
+  }
+
+  calculateBike(tableElements) {
+    let bikeVisitors = ".resource_bike__visitors_" + this.variantCounter;
+    let bikeBound = ".resource_bike__bound_" + this.variantCounter;
+    let resource_bike__visitors = document.querySelectorAll(bikeVisitors);
+    let resource_bike__bound = document.querySelectorAll(bikeBound);
+
+
+    if (resource_bike__visitors.length !== 0) {
+      let boundCount = 0;
+      let visitorsCount = 0;
+      for (let i = 0; i < resource_bike__visitors.length; i++) {
+        boundCount += Number(resource_bike__bound[i].innerHTML);
+        visitorsCount += Number(resource_bike__visitors[i].innerHTML);
+      }
+
+      tableElements.bikeSubresoults.values.values[0].innerHTML = boundCount;
+      tableElements.bikeSubresoults.values.values[1].innerHTML = visitorsCount;
+
+      tableElements.bikeResoults.values.values[0].innerHTML =
+        Math.ceil(boundCount);
+      tableElements.bikeResoults.values.values[1].innerHTML =
+        Math.round(visitorsCount);
+      tableElements.bikeResoults.values.values[2].innerHTML =
+        Math.round(visitorsCount) + Math.ceil(boundCount);
+    }
+  }
+
+  maxStaniCount(tableElements) {
+    let boundInnerCar =
+      tableElements.subResourceCarHousingTable.objektArray[4].tableRow.bound
+        .innerHTML;
+    let boundInnerOther =
+      tableElements.subResourceCarOthersTable.objektArray[4].tableRow.bound
+        .innerHTML;
+
+    if (boundInnerCar !== "-" || boundInnerOther !== "-") {
+      if (boundInnerCar === "-") {
+        boundInnerCar = 0;
+      }
+      if (boundInnerOther === "-") {
+        boundInnerOther = 0;
+      }
+
+      // Round resource to next whole number
+      tableElements.resource[0].values.values[0].innerHTML = Math.ceil(
+        Number(boundInnerCar) + boundInnerOther
+      );
+    } else {
+      tableElements.resource[0].values.values[0].innerHTML = "-";
+    }
+
+    let boundInnerCarVisitors =
+      tableElements.subResourceCarHousingTable.objektArray[4].tableRow.vistiors
+        .innerHTML;
+    let boundInnerOtherVisitors =
+      tableElements.subResourceCarOthersTable.objektArray[4].tableRow.vistiors
+        .innerHTML;
+    if (boundInnerCarVisitors != "-" || boundInnerOtherVisitors != "-") {
+      if (boundInnerCarVisitors === "-") {
+        boundInnerCarVisitors = 0;
+      }
+      if (boundInnerOtherVisitors === "-") {
+        boundInnerOtherVisitors = 0;
+      }
+      // Round number
+      const resourceCount = Math.round(
+        Number(boundInnerCarVisitors) + Number(boundInnerOtherVisitors)
+      );
+      tableElements.resource[0].values.values[1].innerHTML = resourceCount;
+    } else {
+      tableElements.resource[0].values.values[1].innerHTML = "-";
+    }
+  }
+
+  minStaniCount(tableElements) {
+    let boundInnerCar =
+      tableElements.subResourceCarHousingTable.objektArray[2].tableRow.bound
+        .innerHTML;
+    let boundInnerOther =
+      tableElements.subResourceCarOthersTable.objektArray[2].tableRow.bound
+        .innerHTML;
+
+    if (boundInnerCar != "-" || boundInnerOther !== "-") {
+      if (boundInnerCar === "-") {
+        boundInnerCar = 0;
+      }
+      if (boundInnerOther === "-") {
+        boundInnerOther = 0;
+      }
+      // Round resource to next whole number
+      tableElements.resource[1].values.values[0].innerHTML = Math.ceil(
+        Number(boundInnerCar) + Number(boundInnerOther)
+      );
+    } else {
+      tableElements.resource[1].values.values[0].innerHTML = "-";
+    }
+
+    let boundInnerCarVisitors =
+      tableElements.subResourceCarHousingTable.objektArray[2].tableRow.vistiors
+        .innerHTML;
+    let boundInnerOtherVisitors =
+      tableElements.subResourceCarOthersTable.objektArray[2].tableRow.vistiors
+        .innerHTML;
+
+    if (boundInnerCarVisitors != "-" || boundInnerOtherVisitors != "-") {
+      if (boundInnerCarVisitors === "-") {
+        boundInnerCarVisitors = 0;
+      }
+      if (boundInnerOtherVisitors === "-") {
+        boundInnerOtherVisitors = 0;
+      }
+      // Round number
+      const resourceCount = Math.round(
+        Number(boundInnerCarVisitors) + Number(boundInnerOtherVisitors)
+      );
+      tableElements.resource[1].values.values[1].innerHTML = resourceCount;
+    } else {
+      tableElements.resource[1].values.values[1] = "-";
+    }
+
+    const countSum =
+      Number(tableElements.resource[1].values.values[0].innerHTML) +
+      Number(tableElements.resource[1].values.values[1].innerHTML);
+    tableElements.resource[1].values.values[2].innerHTML = countSum;
+  }
+
+  housingResource(tableElements) {
+    const boundCar = Number(
+      tableElements.subResourceCarHousingTable.objektArray[0].tableRow.bound
+        .innerHTML
+    );
+    const boundCarKoeficient = Number(
+      tableElements.subResourceCarHousingTable.objektArray[1].tableRow.bound
+        .innerHTML
+    );
+    tableElements.resource[2].values.values[0].innerHTML = Math.ceil(
+      boundCar * boundCarKoeficient
+    );
+  }
+
+  disabilityResource(tableElements) {
+    const minStani = Number(
+      tableElements.resource[1].values.values[1].innerHTML
+    );
+    let disabilityCount = 0;
+    if (minStani > 500) {
+      disabilityCount = Math.floor(minStani * 0.02);
+    } else {
+      disabilityCount = returnCoeficient(minStani);
+    }
+    tableElements.resource[3].values.values[1].innerHTML = disabilityCount;
+    tableElements.resource[3].values.values[2].innerHTML = disabilityCount;
+    function returnCoeficient(inputValue) {
+      let countArray = [0, 2, 21, 41, 61, 81, 101, 151, 201, 301, 401];
+      for (let i = 0; i < countArray.length; i++) {
+        if (countArray[i] > inputValue) {
+          return countArray[i - 1];
+        }
+        if (i === countArray.length - 1) {
+          return countArray[countArray.length - 1];
+        }
+      }
+    }
+  }
+
+  childernResoulds(tableElements) {
+    let largeStore_hpp = document.querySelector(
+      ".largeStore_hpp_" + this.variantCounter
+    );
+    let largeStore_visitors = document.querySelector(
+      ".resource_largeStore__visitors_" + this.variantCounter
+    );
+    let healthcare_visitors = document.querySelector(
+      ".resource_healthcare__visitors_" + this.variantCounter
+    );
+    let largeStoreVisitors = 0;
+    if (largeStore_visitors) {
+      largeStoreVisitors = Number(largeStore_visitors.innerHTML);
+    }
+    let helthcareVisitors = 0;
+    if (healthcare_visitors) {
+      helthcareVisitors = Number(healthcare_visitors.innerHTML);
+    }
+
+    let coeficint = 0;
+    if (largeStore_hpp.value > 5000) {
+      coeficint = largeStoreVisitors;
+    }
+    const visitors = Number(
+      tableElements.subResourceCarOthersTable.objektArray[1].tableRow.vistiors
+        .innerHTML
+    );
+
+    let childernResoults = ((coeficint + helthcareVisitors) * visitors) / 100;
+
+    tableElements.resource[4].values.values[1].innerHTML =
+      Math.floor(childernResoults);
+    tableElements.resource[4].values.values[2].innerHTML =
+      Math.floor(childernResoults);
   }
 
   buildingSubresults(table) {
@@ -151,7 +362,7 @@ export default class Resource {
     table.objektArray[4].tableRow.bound.innerHTML = "-";
     table.objektArray[4].tableRow.sum.innerHTML = "-";
 
-    if (table.objektArray[3].tableRow.vistiors.innerHTML === "0.15") {
+    if (table.objektArray[3].tableRow.vistiors.innerHTML !== "-") {
       const visitorsMax =
         Number(table.objektArray[3].tableRow.vistiors.innerHTML) *
         Number(table.objektArray[0].tableRow.vistiors.innerHTML);
@@ -176,7 +387,6 @@ export default class Resource {
       countVisitors =
         countVisitors + Number(resource_carOthers__visitors[i].innerHTML);
     }
-    console.log(countBoun);
 
     table.objektArray[0].tableRow.bound.innerHTML =
       Math.round(countBoun * 100) / 100;
@@ -199,10 +409,10 @@ export default class Resource {
     table.objektArray[4].tableRow.bound.innerHTML = "-";
     table.objektArray[4].tableRow.sum.innerHTML = "-";
 
-    if (table.objektArray[3].tableRow.vistiors.innerHTML === "0.15") {
+    if (table.objektArray[3].tableRow.vistiors.innerHTML !== "-") {
       const visitorsMax =
         Number(table.objektArray[3].tableRow.vistiors.innerHTML) *
-        Number(countVisitors);
+        Number(table.objektArray[0].tableRow.vistiors.innerHTML);
       table.objektArray[4].tableRow.vistiors.innerHTML =
         Math.round(visitorsMax * 100) / 100;
     }
@@ -216,15 +426,35 @@ export default class Resource {
       resourceHTML,
       "togle_h1__title",
       "togle_h1__container",
-      "Osobní automobil"
+      "Osobní automobilz"
+    );
+
+    /* BIke */
+    let Bike = this.mainBloks.createTogleElement(
+      resourceHTML,
+      "togle_h1__title",
+      "togle_h1__container",
+      "Jízdní kola"
     );
     // SUBRESUTS
+    /* Car */
     let subResourceCar = this.mainBloks.createTogleElement(
       Car.pasiveElement,
       "togle_h2__title",
       "togle_h2__container",
       "Mezivýpočet"
     );
+
+    console.log(subResourceCar)
+   
+    /*  BIke */
+    let subResourceBike = this.mainBloks.createTogleElement(
+      Bike.pasiveElement,
+      "togle_h2__title",
+      "togle_h2__container",
+      "Mezivýpočet"
+    );
+
     // HAUSING
     let subResourceCarHousing = this.mainBloks.createTogleElement(
       subResourceCar.pasiveElement,
@@ -247,8 +477,17 @@ export default class Resource {
     );
 
     // RESULTS
+    /* Car */
     let resoultsCar = this.mainBloks.createTogleElement(
       Car.pasiveElement,
+      "togle_h2__title",
+      "togle_h2__container",
+      "Výsledky"
+    );
+
+    /*  BIke */
+    let resoultsBike = this.mainBloks.createTogleElement(
+      Bike.pasiveElement,
       "togle_h2__title",
       "togle_h2__container",
       "Výsledky"
@@ -267,7 +506,6 @@ export default class Resource {
       let titleText = resourceTitleArray[i];
       if (i === 0) {
         titleText = resourceTitleArray[i] + "*";
-        console.log(this.inputs.input.input_zone.value);
       }
 
       let element = this.mainBloks.createTable(
@@ -279,14 +517,44 @@ export default class Resource {
       resoultsCar.pasiveElement.appendChild(element.mainElement);
       if (i === 0) {
         iEl = document.createElement("i");
-        iEl.innerHTML = this.maxCoeficient(this.inputs.input.input_zone.value);
+        iEl.innerHTML = this.maxCoeficient(
+          this.inputs.input.input_zone.selectedIndex
+        );
         resoultsCar.pasiveElement.appendChild(iEl);
       }
     }
 
+    let bikeSubresoutls = this.mainBloks.createTable(
+      "Základní počet stání",
+      ["Vázaná", "Návštěvnická"],
+      ["-", "-"]
+    );
+    subResourceBike.pasiveElement.appendChild(bikeSubresoutls.mainElement);
+
+    let bikeResoults = this.mainBloks.createTable(
+      "MINIMÁLNÍ POŽADOVANÝ POČET STÁNÍ",
+      ["Vázaná", "Návštěvnická", "Celkem"],
+      ["-", "-", "-"]
+    );
+    resoultsBike.pasiveElement.appendChild(bikeResoults.mainElement);
+
+    let boldArray = [
+      ...bikeResoults.values.values,
+      ...elementArray[0].values.values,
+      ...elementArray[1].values.values,
+      ...elementArray[2].values.values,
+      ...elementArray[3].values.values,
+      ...elementArray[4].values.values,
+    ];
+
+    this.setBold(boldArray);
+
     tableElements = {
       subResourceCarHousingTable: subResourceCarHousingTable,
       subResourceCarOthersTable: subResourceCarOthersTable,
+      resource: elementArray,
+      bikeSubresoults: bikeSubresoutls,
+      bikeResoults: bikeResoults,
     };
     this.inputs.input.input_zone.addEventListener("change", () => {
       iEl.innerHTML = this.maxCoeficient(
@@ -298,11 +566,24 @@ export default class Resource {
     this.setZone();
   }
 
-  setZone() {
+  setBold(inputArray) {
+    let counter = 0;
+    for (let i = 0; i < inputArray.length; i++) {
+      counter++;
+      if (counter === 3) {
+        counter = 0;
+      } else {
+        inputArray[i].style.fontWeight = "bold";
+      }
+    }
+  }
 
-    const selectedZonID = his.inputs.input.input_zone.selectedIndex;
-    const objectArrayHaus = tableElements.subResourceCarHousingTable.objektArray
-    const objectArrayOthers = tableElements.subResourceCarOthersTable.objektArray
+  setZone() {
+    const selectedZonID = this.inputs.input.input_zone.selectedIndex;
+    const objectArrayHaus =
+      tableElements.subResourceCarHousingTable.objektArray;
+    const objectArrayOthers =
+      tableElements.subResourceCarOthersTable.objektArray;
     objectArrayHaus[1].tableRow.bound.innerHTML =
       this.data.zons[Number(selectedZonID)].related.min;
     objectArrayHaus[1].tableRow.vistiors.innerHTML =
@@ -314,12 +595,12 @@ export default class Resource {
       this.data.zons[Number(selectedZonID)].visitors.max;
 
     objectArrayOthers[1].tableRow.bound.innerHTML =
-      this.data.zons[Number(selectedZonID)].related.min;
+      this.data.zons[Number(selectedZonID)].visitors.min;
     objectArrayOthers[1].tableRow.vistiors.innerHTML =
       this.data.zons[Number(selectedZonID)].visitors.min;
 
     objectArrayOthers[3].tableRow.bound.innerHTML =
-      this.data.zons[Number(selectedZonID)].related.max;
+      this.data.zons[Number(selectedZonID)].visitors.max;
     objectArrayOthers[3].tableRow.vistiors.innerHTML =
       this.data.zons[Number(selectedZonID)].visitors.max;
 
@@ -327,63 +608,14 @@ export default class Resource {
   }
 
   maxCoeficient(zon) {
-    const selectedZon = this.data.zons[zon];
-    if (selectedZon === "00") {
-      return `*koeficient MAX dle zóny ${zon} činí 0.15`;
+    const selectedZonMax = this.data.zons[zon].visitors.max;
+    const zonSelect = this.data.zons[zon].zon;
+
+    if (selectedZonMax !== "-") {
+      return `*koeficient MAX dle zóny ${zonSelect} činí ${selectedZonMax}`;
     } else {
-      return `*koeficient MAX dle zóny ${zon} není určen`;
+      return `*koeficient MAX dle zóny ${zonSelect} není určen`;
     }
-  }
-
-  createBikeElement(resourceHTML) {
-    console.log(resourceHTML);
-    let resoults = resourceHTML;
-    const h1 = document.createElement("h1");
-    const h2 = document.createElement("h2");
-
-    h1.innerHTML = "Výsledky";
-    resoults.appendChild(h1);
-
-    h2.innerHTML = "Jízdní kola";
-    resoults.appendChild(h2);
-    tableElements = this.subResouldsElement(3, "Základní počet stání");
-    tableResourceBike = this.subResouldsElement(
-      3,
-      "<p><span>MINIMÁLNÍ</span> PŘÍPUSTNÝ POČET STÍNÍ</p>"
-    );
-    resoults.appendChild(tableElements.mainDiv);
-    resoults.appendChild(tableResourceBike.mainDiv);
-
-    return {
-      table: tableElements,
-    };
-  }
-
-  calculateBike() {
-    let resource_bike__bound = document.querySelectorAll(
-      ".resource_bike__bound_" + this.variantCounter
-    );
-    let resource_bike__visitors = document.querySelectorAll(
-      ".resource_bike__visitors_" + this.variantCounter
-    );
-
-    let boundCount = 0;
-    let visitorsCount = 0;
-    for (let i = 0; i < resource_bike__visitors.length; i++) {
-      boundCount += Number(resource_bike__bound[i].innerHTML);
-      visitorsCount += Number(resource_bike__visitors[i].innerHTML);
-    }
-
-    tableElements.bound.innerHTML = boundCount;
-    tableElements.visitors.innerHTML = visitorsCount;
-    tableElements.sum.innerHTML = boundCount + visitorsCount;
-    tableResourceBike.bound.innerHTML = Math.round(boundCount);
-    tableResourceBike.visitors.innerHTML = Math.round(visitorsCount);
-    tableResourceBike.sum.innerHTML =
-      Math.round(boundCount) + Math.round(visitorsCount);
-
-    tableResourceBike.bound.classList.add("boltText");
-    tableResourceBike.visitors.classList.add("boltText");
   }
 
   createDescriptionText(title, text) {

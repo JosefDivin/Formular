@@ -11,7 +11,7 @@ export default class Subresource {
     this.inputsClass = new Inputs(this.data);
     this.mainBloks = new MainBloks();
     this.subrsourceHTML = subrsourceHTML;
-    console.log(this.subrsourceHTML);
+
     this.resource = new Resource(variantCounter, this.inputs, this.data);
   }
   createDescriptionText(title, text) {
@@ -66,12 +66,20 @@ export default class Subresource {
     const arrow = document.createElement("div");
     titleEl.classList.add("togle_title");
     bodyEl.classList.add("togle_body");
-    arrow.classList.add("esri-icon-down-arrow");
+
     arrow.classList.add("pointer");
     p.innerHTML = title;
     titleEl.appendChild(p);
     titleEl.appendChild(arrow);
+    console.log(title)
 
+            // If it's subresource count
+            if(title === "Mezivýpočet"){
+              arrow.classList.add("esri-icon-down-arrow")
+              bodyEl.style.display = "none"
+          }else{
+              arrow.classList.add("esri-icon-up-arrow")
+          }
     arrow.addEventListener("click", () => {
       if (arrow.classList.contains("esri-icon-up-arrow")) {
         arrow.classList.add("esri-icon-down-arrow");
@@ -140,7 +148,7 @@ export default class Subresource {
         );
 
         // Adding class to element
-        inputs_appartments.input.classList.add("input_aprtments");
+        inputs_appartments.input.classList.add("input_aprtments_" + this.variantCounter);
       }
 
       // CREATE INPUT HPPP
@@ -157,12 +165,12 @@ export default class Subresource {
           inputs_production.inputs_production_div
         );
         // Adding class to element
-        inputs_production.select.classList.add("input_production");
+        inputs_production.select.classList.add("input_production_" + this.variantCounter);
       }
 
       if (this.type === "largeStore") {
         // Adding class to element
-        hppInput.input.classList.add("largeStore_hpp");
+        hppInput.input.classList.add("largeStore_hpp_" + this.variantCounter);
       }
     }
     return {
@@ -177,7 +185,7 @@ export default class Subresource {
   subresourceResource(subresourcInput) {
     let subresource_resource = document.createElement("div");
     subresource_resource.classList.add("subresource_resource");
-    const inputElements = this.subresourceTogleElement("Mezi výpočet");
+    const inputElements = this.subresourceTogleElement("Mezivýpočet");
     subresource_resource.appendChild(inputElements.title);
     subresource_resource.appendChild(inputElements.body);
 
@@ -203,8 +211,7 @@ export default class Subresource {
       );
       appartmentsValues = this.mainBloks.createColumns([0, 0, 0], "value");
       const inputValue = appartmentsValues
-      console.log(inputValue.values
-      )
+
       this.addingResourceCssClass(
         inputValue.values,
         inputValue.values,
@@ -227,7 +234,7 @@ export default class Subresource {
       ["Vázana", "Návštěvnická", "Celkem"],
       [0, 0, 0]
     );
-    console.log(carElement)
+
 
     this.addingResourceCssClass(
       bikeElement.values,
@@ -258,6 +265,19 @@ export default class Subresource {
     subresourcInput,
     carApartmentElement
   ) {
+
+    if(type === "production"){
+
+      subresourcInput.production.select.addEventListener("change", () => {
+        this.calculateOnChange(
+          bikeElement,
+          carElement,
+          selectedIndex,
+          subresourcInput,
+          carApartmentElement
+        );
+      });
+    }
     if (type === "housing") {
       subresourcInput.housingApparments.input.addEventListener("change", () => {
         this.calculateOnChange(
@@ -367,8 +387,7 @@ export default class Subresource {
 
   addingResourceCssClass(bound, visitors, title) {
     // Adding class for Resourece count
-    console.log(title)
-    console.log(bound)
+
     if (title === "Jízdní kola") {
       bound.values[0].classList.add(
         "resource_bike__bound_" + this.variantCounter
@@ -401,12 +420,12 @@ export default class Subresource {
       if(this.type === "healthcare"){
 
         visitors.values[1].classList.add(
-          "resource_largeStore__visitors" + this.variantCounter
+          "resource_healthcare__visitors_" + this.variantCounter
         );
       }
       if(this.type === "largeStore"){
         visitors.values[1].classList.add(
-          "resource_healthcare__visitors" + this.variantCounter
+          "resource_largeStore__visitors_" + this.variantCounter
         );
       }
      
@@ -466,14 +485,15 @@ export default class Subresource {
     let carVisitors;
 
     if (this.type === "production") {
+
       carBound =
-        ((subresourcInput.inputsProduction.select.value /
-          usage[selectedIndex].values_1.hpp) *
+        ((subresourcInput.hppInput.input.value /
+          subresourcInput.production.select.value) *
           usage[selectedIndex].values_1.bounded) /
         100;
       carVisitors =
-        ((subresourcInput.inputsProduction.select.value /
-          usage[selectedIndex].values_1.hpp) *
+        ((subresourcInput.hppInput.input.value /
+          subresourcInput.production.select.value) *
           usage[selectedIndex].values_1.visitors) /
         100;
     } else if (this.type === "others") {

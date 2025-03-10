@@ -146,6 +146,52 @@
         .resource_table>tr>th:first-child {
             width: 90%;
         }
+
+
+        /***************/
+        /* INPUT OTHERS*/
+        /***************/
+        .input_others__title {
+            width: 100%;
+            text-align: center;
+            padding: 10px 0px;
+            background-color: #dfdede;
+
+            margin: 5px 0px
+        }
+
+        .input_others__MainTitle{
+            width: 100%;
+            text-align: center;
+            padding: 10px 0px;
+            background-color: #c9c9c9;
+            font-weight: bold;
+            margin: 5px 0px
+        }
+
+        .input_others_inputs {
+            display: flex;
+        }
+
+        .input_others_inputs>div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+            background-color: #f3f3f3;
+            padding: 15px;
+            margin-right: 5px;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+        .input_others_inputs>div>input {
+            padding: 5px;
+        }
+
+        .input_others_inputs>div>p {
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 
@@ -193,7 +239,27 @@
                 <p class="columnValue">0</p>
             </div> -->
 
-
+        <div class="input_others" style="display: block;">
+            <div class="input_others__MainTitle">Základní počet stání</div>
+            <div class="input_others__title">Osobní automobily</div>
+            <div class="input_others_inputs">
+                <div>
+                    <p>Návštěvnická</p><input class="input_others__carVisitors">
+                </div>
+                <div>
+                    <p>Vázaná</p><input class="input_others__carBound">
+                </div>
+            </div>
+            <div class="input_others__title">Jízdní kola</div>
+            <div class="input_others_inputs">
+                <div>
+                    <p>Návštěvnická</p><input class="input_others__bikeVisitors">
+                </div>
+                <div>
+                    <p>Vázaná</p><input class="input_others__bikeBound">
+                </div>
+            </div>
+        </div>
 
         <div class="resulds">
             <div class="results_h1__title">
@@ -247,15 +313,15 @@
 
     </div>
     <script>
-        function createTogleElement(inputHTML, activeElClass, pasivElClass, title){
-            function togleElement(activElement,pasiveElement){
-                activElement.addEventListener("click", ()=>{
-                    if(arrow.classList.contains("esri-icon-up-arrow")){
-                        pasiveElement.style.display="none"
+        function createTogleElement(inputHTML, activeElClass, pasivElClass, title) {
+            function togleElement(activElement, pasiveElement) {
+                activElement.addEventListener("click", () => {
+                    if (arrow.classList.contains("esri-icon-up-arrow")) {
+                        pasiveElement.style.display = "none"
                         arrow.classList.remove("esri-icon-up-arrow")
                         arrow.classList.add("esri-icon-down-arrow")
-                    }else{
-                        pasiveElement.style.display="block"
+                    } else {
+                        pasiveElement.style.display = "block"
                         arrow.classList.add("esri-icon-up-arrow")
                         arrow.classList.remove("esri-icon-down-arrow")
                     }
@@ -264,7 +330,7 @@
             let activElement = document.createElement("div")
             let p = document.createElement("p")
             let arrow = document.createElement("div")
-            let pasiveElement =  document.createElement("div")
+            let pasiveElement = document.createElement("div")
             p.innerHTML = title;
 
             arrow.classList.add("esri-icon-up-arrow")
@@ -277,7 +343,7 @@
             inputHTML.appendChild(activElement)
             inputHTML.appendChild(pasiveElement)
 
-            togleElement(arrow,pasiveElement)
+            togleElement(arrow, pasiveElement)
             return {
                 activElement: activElement,
                 pasiveElement: pasiveElement
@@ -425,10 +491,10 @@
             "Maximální přípustný počet stání"
 
         ]
-        
 
-let resulds = document.querySelector(".resulds")
-       let element =  createTogleElement(resulds, "results_h1__title", "results_h1__container", "Osobní automobil")
+
+        let resulds = document.querySelector(".resulds")
+        let element = createTogleElement(resulds, "results_h1__title", "results_h1__container", "Osobní automobil")
         let resutls_h3__container = element.pasiveElement
 
         const table = document.createElement("table");

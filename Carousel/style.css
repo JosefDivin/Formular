@@ -1,0 +1,88 @@
+#toolsPanel{
+    width: 560px;
+}
+
+.variants_buttons {
+    display: flex;
+    width: 560px;
+    justify-content: space-around;
+ }
+ 
+ .variants_buttons>div {
+    font-size: 25px;
+    cursor: pointer;
+ 
+    padding: 5px;
+    text-align: center;
+    margin: 2px;
+    background-color: rgb(235 235 235);
+ 
+ }
+
+ .variants_slider__previous,
+ .variants_slider__next {
+    opacity: 1;
+ }
+ 
+ .variants_button__add {
+ 
+    width: 100%;
+ }
+ 
+ .variants_button__remove {
+ 
+    display: none;
+ }
+ 
+ .variants_buttons>div:hover {
+    opacity: 0.8;
+ }
+
+ .carousel {
+
+    width: 560px;
+    height: 90vh;
+    overflow-x: hidden; /* Hide horizontal scrollbar */
+  
+    display: -webkit-inline-box;
+ 
+ }
+
+ .variants{
+    background-color: green;
+    margin: 5px;
+    width: 550px;
+    height: 2000px;
+ }
+ .carousel > .variants:nth-child(2){
+    background-color: rgb(105, 128, 0);
+
+ }
+ .carousel > .variants:nth-child(3){
+    background-color: rgb(128, 0, 0);
+
+ }
+
+ .carousel > .variants:nth-child(4){
+    background-color: rgb(0, 9, 128);
+
+ }
+
+ 
+.variants_slider {
+    display: flex;
+    width: 560px;
+    justify-content: space-between;
+ }
+ 
+ .variants_slider>div >div{
+    font-size: 25px;
+    cursor: pointer;
+ 
+ 
+ }
+ 
+ .variants_slider>h2 {
+    margin: 0;
+ 
+ }

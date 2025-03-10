@@ -190,20 +190,22 @@ export default class Inputs {
   input_others() {
     const input_others = document.createElement("div");
     input_others.classList.add("input_others");
-    const h4 = document.createElement("h4");
+    const input_others__MainTitle = document.createElement("div");
 
-    h4.innerHTML = "Základní počet stání";
-    input_others.appendChild(h4);
+    input_others__MainTitle.innerHTML = "Základní počet stání";
+    input_others__MainTitle.classList.add("input_others__MainTitle")
+    input_others.appendChild(input_others__MainTitle);
     const inputOthers = (cssSelector) => {
-      const h5 = document.createElement("h5");
+      const input_others__title = document.createElement("div");
+      input_others__title.classList.add("input_others__title")
 
       const title =
         cssSelector === "input_others__car"
           ? "Osobní automobily"
           : "Jízdní kola";
 
-      h5.innerHTML = title;
-      input_others.appendChild(h5);
+      input_others__title.innerHTML = title;
+      input_others.appendChild(input_others__title);
 
       const inputsType = (type) => {
         const wraper = document.createElement("div");
@@ -221,11 +223,16 @@ export default class Inputs {
         };
       };
 
+      let input_others_inputs = document.createElement("dvi")
+      input_others_inputs.classList.add("input_others_inputs")
       const visitors = inputsType("Visitors");
       const bound = inputsType("Bound");
 
-      input_others.appendChild(visitors.wraper);
-      input_others.appendChild(bound.wraper);
+      
+
+      input_others_inputs.appendChild(visitors.wraper);
+      input_others_inputs.appendChild(bound.wraper);
+      input_others.appendChild(input_others_inputs);
 
       return {
         input_others_bound: bound.input,
